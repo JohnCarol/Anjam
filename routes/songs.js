@@ -53,7 +53,7 @@ router.get("/", function(req,res){
 					}else{
 						isAdmin = false;
 					}
-					
+					console.log(isAdmin);
 					res.render("songs/index",{songs:allSongs, isAdmin:isAdmin})		
 					
 					

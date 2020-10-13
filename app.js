@@ -24,7 +24,7 @@ var songRoutes = require('./routes/songs'),
 .then(()=> console.log('Connected to DB'))
 .catch(error => console.log(error.message));*/
 
-console.log(process.env.DATABASEURL);
+//console.log(process.env.DATABASEURL);
 
 const url = process.env.DATABASEURL || "mongodb://localhost/anjam";
 
