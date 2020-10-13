@@ -32,7 +32,7 @@ router.post('/register', function(req,res){
         return res.redirect("back");
       }
 		
-	var authenticationURL = 'https://wbcjcnodeveloper.run-eu-central1.goorm.io/verify?authToken=' + user.authToken;
+	var authenticationURL = 'https://infinite-atoll-58349.herokuapp.com/verify?authToken=' + user.authToken;
     sgMail.send({
         to:       user.email,
         from:     'jcbukenya@gmail.com',
@@ -91,7 +91,7 @@ router.post('/forgot_password', function(req,res){
 			}
 		
 			foundUser = foundUser[0];
-			var authenticationURL = 'https://wbcjcnodeveloper.run-eu-central1.goorm.io/reset_password?email=' + foundUser.email + '&authToken=' + foundUser.authToken;
+			var authenticationURL = 'https://infinite-atoll-58349.herokuapp.com/reset_password?email=' + foundUser.email + '&authToken=' + foundUser.authToken;
 				
 			sgMail.send({
         	to:       foundUser.email,
