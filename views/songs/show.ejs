@@ -2,22 +2,21 @@
 <div class = "container">
 	<div class = "row">
 		<div class = "col-md-3">
-			<p class = "lead">ANJAM</p>
+			<!--<p class = "lead">Account</p>-->
 			<div class = "list-group">
-				<li class = "list-group-item active">INFO 1</li>
-				<li class = "list-group-item">INFO 2</li>
-				<li class = "list-group-item">INFO 3</li>
+				<li class = "list-group-item">Profile</li>
+				<li class = "list-group-item active">Downloads</li>
+				<li class = "list-group-item">Favourites</li>
+				
 			</div>
 		</div>
 		<div class = "col-md-9">
 			<div class = "thumbnail">					
-				<div class = "caption-full">
-					 
+				<div class = "caption-full">					 
 					<h3><a><%=song.name %></a></h3>	
 					<form  class = "pull-right" id = "download-form" action = "/songs/<%= song._id %>/downloads" method = "POST">								
 								<%let sdl = "Download";	
-									console.log("-->is curr" + currentUser);			
-
+									console.log("-->is curr" + currentUser);	
 						 			if(currentUser)
 									{
 										let dlUsers = song.downloads.filter(item => item.userid.toHexString().indexOf(currentUser._id) !== -1);
@@ -31,15 +30,17 @@
 								</button>
 					</form>
 					<div class = "mixbuttons" id = "<%= song.fileUrl%>">
-						<button class = "play" name ='0'>Play</button>
-						<button class = "pause" name='0'>Pause</button>
-						<button class = "stop" name='0'>Stop</button>
-						<button class = "volup" name='0'>Vol+</button>
-						<button class = "voldown" name='0'>Vol-</button>
+						<button class = "play"  name = "0"><span class = "glyphicon glyphicon-play"></span></button>
+						<button class = "pause"  name = "0"><span class = "glyphicon glyphicon-pause"></span></button>
+						<button class = "stop"  name = "0"><span class = "glyphicon glyphicon-stop"></span></button>	
+						<p>
+							Genre: <%= song.genre%> | BPM: <%= song.bpm%>
+						</p>
 					</div>
+					
 					<p><%=song.description%></p>
-					<p><em>Submitted By <%=song.author.username%></em></p>
-					<% if(currentUser && song.author.id.equals(currentUser._id)){%>
+					
+					<% if(isAdmin || (currentUser && song.author.id.equals(currentUser._id))){%>
 							<a href = "/songs/<%= song._id %>/edit" class = "btn btn-warning">Edit</a>
 							<form id = "delete-form" action = "/songs/<%= song._id %>?_method=DELETE" method = "POST">
 								<button class = "btn btn-danger">							
@@ -49,7 +50,8 @@
 				</div>	<% }%>
 			</div>
 			
-			<div class = "well">				
+			<div class = "well">	
+			
 					<% var x = 1;
 						var dl = "Download";
 								
@@ -61,7 +63,7 @@
 						<div class = "col-md-12">
 							<div class = "thumbnail">					
 								<div class = "caption-full">
-							<h5><%= mix.name%></h5>
+							<h3><%= mix.name%></h3>
 							<form  class = "pull-right" id = "download-form" action = "/songs/<%= song._id %>/mixes/<%=mix._id%>/downloads" method = "POST">							
 								<%
 									
@@ -85,7 +87,7 @@
 								<button class = "pause"  name = "<%= x %>"><span class = "glyphicon glyphicon-pause"></span></button>
 								<button class = "stop"  name = "<%= x %>"><span class = "glyphicon glyphicon-stop"></span></button>	
 							</div>
-							<span class = "pull-right"><%= mix.length%> || Download</span>
+															
 								<p><%= mix.description %></p>
 								<% if(isAdmin || (currentUser && song.author.id.equals(currentUser._id))){%>
 								<a class = "btn btn-xs btn-warning" 

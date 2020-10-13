@@ -1,7 +1,24 @@
+body {
+	padding-top: 90px;
+}
+
 .thumbnail img{
 	
-	width : 100%;
+	width : 100%;	
+}
+
+.navbar-nav li a{
+	padding-top: 25px;
+}
+
+.navbar {
 	
+	padding-bottom: 10px;
+}
+
+.navbar img{
+	width : 60%;
+	padding-top: 0px
 }
 
 .thumbnail{

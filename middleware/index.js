@@ -15,7 +15,7 @@ middlewareObj.checkAuthentication = function(req,res,next)
 				res.redirect("/songs");
 			}else{
 				
-				if(foundSong.author.id.equals(req.user._id))
+				if(req.user.isAdmin || foundSong.author.id.equals(req.user._id))
 					{
 						req.song = foundSong;
 						next();			
