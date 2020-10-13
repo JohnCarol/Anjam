@@ -26,7 +26,7 @@ router.post('/register', function(req,res){
 	var password = req.body.password;
 	var email = req.body.email;	
 	
-	User.register(new User({ email : email, username : username}), password, function(err, user) {
+	User.register(new User({ email : email, username : username, isAdmin : false}), password, function(err, user) {
       if (err) {
 		req.flash("error", "That Email Address already exists.");  
         return res.redirect("back");
