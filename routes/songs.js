@@ -50,6 +50,10 @@ router.get("/", function(req,res){
 				
 					if(req.user){
 						isAdmin = req.user.isAdmin;
+						if(isAdmin === true)
+							{
+								isAdmin = true;
+							}
 					}else{
 						isAdmin = false;
 					}
