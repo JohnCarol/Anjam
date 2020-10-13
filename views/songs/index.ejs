@@ -3,11 +3,8 @@
 	<header class = "jumbotron">
 		<div class = "container">		
 			<h1>Welcome to ANJAM!</h1>	
-			<p>Your one stop for all your music library needs</p>
-			Role <%=isAdmin%> Role
-			<% 
-			
-			if(isAdmin === true){%><p><a href = "/songs/new" class = "btn btn-primary btn-lg">Add new Song</a></p><%}%>
+			<p>Your one stop for all your music library needs</p>			
+			<%	if(isAdmin === true){%><p><a href = "/songs/new" class = "btn btn-primary btn-lg">Add new Song</a></p><%}%>
 			<p>
 				<form action = "/songs" method="GET" class = "form-inline">
 					<div class = "form-group">
