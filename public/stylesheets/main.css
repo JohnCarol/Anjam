@@ -46,9 +46,11 @@ body {
 
 .playing{
 	
-	border-width: 1px;
+	border-width: 2px;
 	border-style: solid;
 	border-color: red;
+	box-shadow: 0 0.5em 0.5em -0.4em;
+	transform: translateY(-0.25em)
 	
 }
 

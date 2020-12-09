@@ -1,61 +1,51 @@
 <%- include ("../partials/header") %>	
-<div class = "container">
+<main class = "container">
 	<header class = "jumbotron">
-		<div class = "container">		
+		
 			<h1>Welcome to ANJAM!</h1>	
 			<p>Your one stop for all your music library needs</p>			
 			<%	if(isAdmin === true){%><p><a href = "/songs/new" class = "btn btn-primary btn-lg">Add new Song</a></p><%}%>
-			<p>
+			<article>
 				<form action = "/songs" method="GET" class = "form-inline">
 					<div class = "form-group">
 						<input type = "text" name = "search" placeholder = "Search...." class = "form-control">
 						<input type = "submit" value = "Search" class = "btn btn-default">
 					</div>
 				</form>
-			</p>
-		</div>		
+			</article>
+			
 	</header>
-	<div class = "row">
+	
+	<section>
 		
 		<% 	let x = 0;
 			songs.forEach(function(song){ %>
-			<div class="col-md-12">				
-					<div class = "thumbnail">
-						<div class = "caption-full">
-						<div class = "row">
-							<div class="col-md-12">
-								<div class = "container-fluid">
-									<div class = "mixbuttons" id = "<%= song.fileUrl%>">
-										<div class = "caption">
-											<h4><%= song.name %></h4>
-										</div>
-										<button class = "play"  name = "<%= x %>"><span class = "glyphicon glyphicon-play"></span></button>
-										<button class = "pause"  name = "<%= x %>"><span class = "glyphicon glyphicon-pause"></span></button>
-										<button class = "stop"  name = "<%= x %>"><span class = "glyphicon glyphicon-stop"></span></button>	
-										<div class = "genres">
-											Genre : <%=song.genre%>	<br>
-											Subgenre : <%=song.subgenre%><br><br>
-											<a href = "/songs/<%= song._id%>" class = "btn btn-primary">More Info</a>
-											<% if(currentUser && song.author.id.equals(currentUser._id)){%>
-												<a href = "/songs/<%= song._id %>/edit" class = "btn btn-warning">Edit</a>
-												<form id = "delete-form"  class = "pull-right" action = "/songs/<%= song._id %>?_method=DELETE" method = "POST">
-													<button class = "btn btn-danger">							
-													Delete
-												</button>
-												</form>							
-											<%} %>
-										</div>
-									</div>
-								</div>									
-							</div>														
-						</div>
-						</div>
-					</div>				
-			</div>	
+			<article class="col-md-12 thumbnail caption-full">
+								<section class="row container-fluid">									
+										<article class = "mixbuttons" id = "<%= song.fileUrl%>">											
+											<h4><%= song.name %></h4>											
+											<button class = "play"  name = "<%= x %>"><span class = "glyphicon glyphicon-play"></span></button>
+											<button class = "pause"  name = "<%= x %>"><span class = "glyphicon glyphicon-pause"></span></button>
+											<button class = "stop"  name = "<%= x %>"><span class = "glyphicon glyphicon-stop"></span></button>	
+											<p>Genre : <%=song.genre%><br>
+												Subgenre : <%=song.subgenre%>
+											</p>
+												<a href = "/songs/<%= song._id%>" class = "btn btn-primary">More Info</a>
+												<% if(currentUser && song.author.id.equals(currentUser._id)){%>
+													<a href = "/songs/<%= song._id %>/edit" class = "btn btn-warning">Edit</a>
+													<form id = "delete-form"  class = "pull-right" action = "/songs/<%= song._id %>?_method=DELETE" method = "POST">
+														<button class = "btn btn-danger">							
+														Delete
+													</button>
+													</form>							
+												<%} %>											
+										</article>																	
+								</section>				
+			</article>	
 		<% x++});%>	
 		
-	</div>		
-</div>
+	</section>		
+</main>
 <script type="text/javascript" src = "/js/scripts.js"></script>
 <script type="text/javascript" src = "/js/js.js"></script>
 
