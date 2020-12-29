@@ -14,7 +14,8 @@ var flash = require("connect-flash");
 var songRoutes = require('./routes/songs'),	
 	indexRoutes = require('./routes/index'),
 	mixesRoutes = require('./routes/mixes'),
-	downloadsRoutes= require('./routes/downloads');
+	downloadsRoutes = require('./routes/downloads'),
+	profileRoutes = require('./routes/profile');
 
 
 /*mongoose.connect("mongodb://localhost/yelp_camp", {
@@ -78,6 +79,7 @@ app.use("/songs", songRoutes);
 app.use("/songs/:id/mixes", mixesRoutes);
 app.use("/songs/:id/downloads", downloadsRoutes);
 app.use("/songs/:id/mixes/:mix_id/downloads", downloadsRoutes);
+app.use("/profile", profileRoutes);
 //app.use("/campgrounds/:id/comments", commentRoutes);
 
 var port = process.env.PORT || 3000;

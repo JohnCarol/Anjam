@@ -1,25 +1,28 @@
 <%- include("../partials/header")%>
 <main class = "container">
 	
-	<section class = "row">
-		<aside id = "sidebar">
-			<section class = "col-md-3 list-group">								
-					<li class = "list-group-item">Profile</li>
-					<li class = "list-group-item active">Downloads</li>
-					<li class = "list-group-item">Favourites</li>				
-			</section>
-		</aside>
-		<section class = "col-md-9 thumbnail caption-full">							 					
+	
+		<section class = "col-md-12 thumbnail caption-full">
+			<header class = "jumbotron">
 					<form  class = "pull-right" id = "download-form" action = "/songs/<%= song._id %>/downloads" method = "POST">								
 								<%let sdl = "Download";	
-									console.log("-->is curr" + currentUser);	
+									//console.log("-->is curr" + currentUser);	
 						 			if(currentUser)
 									{
-										let dlUsers = song.downloads.filter(item => item.userid.toHexString().indexOf(currentUser._id) !== -1);
+										/*let dlUsers = song.downloads.filter(item => item.userid.toHexString().indexOf(currentUser._id) !== -1);
 									    if(dlUsers.length > 0)
 											{
-												sdl = "Downloaded"
-											}}	
+												
+											}
+											*/
+										
+										let found = song.downloads.indexOf(currentUser._id);
+										if(found !== -1)
+										{
+											sdl = "Song Downloaded"
+										}
+											//console.log(song.downloads);
+									}	
 										%>
 								<button class = "btn btn-normal">
 									<%=sdl%>
@@ -35,9 +38,6 @@
 						</p>
 						<p><%=song.description%></p>
 					</div>
-					
-					
-					
 					<% if(isAdmin || (currentUser && song.author.id.equals(currentUser._id))){%>
 							<a href = "/songs/<%= song._id %>/edit" class = "btn btn-warning">Edit</a>
 							<form id = "delete-form" action = "/songs/<%= song._id %>?_method=DELETE" method = "POST">
@@ -46,14 +46,15 @@
 								</button>
 							</form>
 					<% }%>		
-			
+			</header>
 			<div class = "well">	
 			
 					<% var x = 1;
-						var dl = "Download";
+						
 								
 
 						song.mixes.forEach(function(mix){
+							let dl = "Download";
 					
 					%>
 					<div class = "row" id = "/songs/<%=song._id%>/mixes/<%=mix._id%>">				
@@ -67,13 +68,12 @@
 						 			if(currentUser)
 									{
 									
-										let dlUsers = mix.downloads.filter(item => item.userid.toHexString().indexOf(currentUser._id) !== -1);
-									    if(dlUsers.length > 0)
-											{
-													
-												dl = "Downloaded"
-												console.log(dl);
-											}}	
+										let found = mix.downloads.indexOf(currentUser._id);
+										if(found !== -1)
+										{
+											dl = "Mix Downloaded";
+										}
+									}	
 										%>
 								<button class = "btn btn-normal">
 									<%=dl%>
@@ -107,7 +107,7 @@
 				
 			</div>			
 			
-		</section>
+	
 		
 		
 		<div class="modal fade" id="confirm-delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">

@@ -5,8 +5,6 @@ var User = require("../models/user");
 const sgMail = require('@sendgrid/mail');
 sgMail.setApiKey(process.env.SENDGRIDAPI);
 
-
-
 router.get("/", function(req,res){
 	
 	res.render("landing");

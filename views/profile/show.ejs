@@ -1,0 +1,60 @@
+<%- include("../partials/header")%>
+<main class = "container">
+	<section class = "row">
+		<h1 style = "text-align:center">User Profile</h1>
+		<div style = "width: 60%; margin: 15px auto;">			
+			<form method="POST" action = "/profile/update">
+				<div class = "form-group">
+					<label for = "User[username]">Display Name</label>
+					<input value = "<%=currentUser.username%>" id = "User[username]" class = "form-control" name = "username" type = "text" placeholder = "User Name" required>
+				</div>
+				<div class = "form-group">
+					<label for = "User[email]">Email Address</label>
+					<input id = "User[email]" disabled class = "form-control" name = "email" type = "email" placeholder = "Email Address" value = "<%=currentUser.email%>">
+				</div>
+				<div class = "form-group">
+					<input class = "btn btn-lg btn-default btn-block btn-primary" type = "submit" value = "Update">
+				</div>				
+			</form>	
+		</div>
+	</section>
+	<% if (songs){%>
+	<section>		
+		<h3 style = "text-align:left">Downloads</h3>
+		<div class = "container">	
+			<hr>
+			<table class="table table-hover">
+				<thead>
+					<tr>
+						<th>Song/Mix Name</th>
+						<th>Genre</th>
+						<th>Duration</th>
+						<th>&nbsp;</th>
+					</tr>
+				</thead>
+				<tbody>
+					<% 
+					let x = 0;
+					songs.forEach(function(song){ %>
+					<tr>
+						<td><%= song.name%></td>
+						<td><%= song.genre%></td>
+						<td><%= song.length%></td>	
+						<td>
+							<div class = "mixbuttons" id = "<%= song.fileUrl%>">
+								<button class = "play"  name = "<%= x %>"><span class = "glyphicon glyphicon-play"></span></button>
+								<button class = "pause"  name = "<%= x %>"><span class = "glyphicon glyphicon-pause"></span></button>
+								<button class = "stop"  name = "<%= x %>"><span class = "glyphicon glyphicon-stop"></span></button>	
+							</div>
+						</td>
+					</tr>
+					<% x++; }); %>
+				</tbody>
+
+			</table>		
+		</div>
+	 </section>
+	<% x++;}%>
+</main>
+<script type="text/javascript" src = "/js/scripts.js"></script>
+<%- include("../partials/footer")%>

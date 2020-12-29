@@ -58,9 +58,7 @@ router.get("/", function(req,res){
 						isAdmin = false;
 					}
 					console.log(isAdmin);
-					res.render("songs/index",{songs:allSongs, isAdmin:isAdmin})		
-					
-					
+					res.render("songs/index",{songs:allSongs, isAdmin:isAdmin})	
 			}
 		})	
 	}	
@@ -147,7 +145,7 @@ router.get("/:id", function(req,res){
 				 song.fileUrl = song.fileUrl.replace("/public", "");
 				 if(req.xhr)
 					 {
-						 console.log('ajax');
+						 //console.log('ajax');
 						 res.json(song); 
 					 }else
 					 {
@@ -157,7 +155,7 @@ router.get("/:id", function(req,res){
 								let isAdmin = false;
 								}
 						 
-						 console.log('normal');
+						 //console.log('normal');
 						 res.render("songs/show", {song:song, isAdmin: isAdmin});		
 						
 					 }

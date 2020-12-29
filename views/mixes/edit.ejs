@@ -6,11 +6,11 @@
 			<form method = "POST" action = "/songs/<%=song_id%>/mixes/<%=mix._id%>?_method=PUT">
 				<div class = "form-group">
 					<label for = "mix[name]">Mix Name</label>
-					<input class = "form-control" name = "mix[name]" type = "text" value = "<%=mix.name%>" required>
+					<input class = "form-control" name = "mix[name]" id = "mix[name]" type = "text" value = "<%=mix.name%>" required>
 				</div>							
 				<div class = "form-group">
 					<label for = "mix[description]">Mix Description</label>
-					<input type = "text" class = "form-control" value = "<%=mix.description%>" name = "mix[description]" required>
+					<input type = "text" class = "form-control" value = "<%=mix.description%>" id = "mix[description]" name = "mix[description]" required>
 				</div>
 				<div class = "form-group">
 					<input class = "btn btn-lg btn-default btn-block btn-primary" type = "submit" value = "Update">

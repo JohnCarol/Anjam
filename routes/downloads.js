@@ -4,9 +4,11 @@ var Song = require("../models/songs");
 var Mix = require("../models/mixes");
 var middleware = require("../middleware");
 
-router.get('/', (req,res)=>{
+router.get('/', middleware.isLoggedIn, (req,res)=>{
 		   
-		   //
+	let id = req.params.id;
+	let mix_id = req.params.mix_id;	
+	let user_id = req.user._id;
 		   
 		   
 		   });
@@ -32,23 +34,23 @@ router.post('/', middleware.isLoggedIn, (req,res)=>{
 				{
 					let link = foundMix.fileUrl;
 					const file = __basedir + link;
+					let downloads = foundMix.downloads;
 					//console.log(file);
 					//Check to see if user has already downloaded this
 					//Serch downloads to see if this particualr song has this users id in the downloads
 					//Song.countDocuments({downloads : { userid : {$in : user_id}}}, function (err, count){ 
-					Mix.countDocuments({"downloads.userid" : user_id}, function (err, count){ 
-					if(count>0){
-						//console.log(count);
-						console.log('Mix Already downloaded');
-						}
-					else
-						{
-							//console.log("user_id - >" + user_id);
-							console.log('Newly downloaded');
-							foundMix.downloads.push({userid : user_id, username : req.user.username});
-							foundMix.save();	
-						}
-					}); 
+					let found = downloads.indexOf(user_id);
+					if(found !== -1)
+					{
+						console.log('Mix Already downloaded');				
+					
+					}else
+					{
+					
+						console.log('Newly downloaded mix');
+						foundMix.downloads.push(user_id);
+						foundMix.save();	
+					} 
 				res.download(file); 	
 				}
 
@@ -67,30 +69,47 @@ router.post('/', middleware.isLoggedIn, (req,res)=>{
 			{
 				let link = foundSong.fileUrl;
 				const file = __basedir + link;
+				let downloads = foundSong.downloads;
 				//Check to see if user has already downloaded this
 				//Serch downloads to see if this particualr song has this users id in the downloads
 				//Song.countDocuments({downloads : { userid : {$in : user_id}}}, function (err, count){ 
-				Song.countDocuments({"downloads.userid" : user_id}, function (err, count){ 
-				if(count>0){
-					console.log(count);
+				//console.log(downloads);
+				let found = downloads.indexOf(user_id);
+				//console.log("found is: " + found);
+				if(found !== -1)
+				{
 					console.log('Song Already downloaded');
-					}
-				else
-					{
-						console.log("user_id - >" + user_id);
-						console.log('Newly downloaded');
-						foundSong.downloads.push({userid : user_id, username : req.user.username});
-						foundSong.save();	
-					}
-				}); 
+				
+					
+				}else
+				{
+					
+					console.log('Newly downloaded');
+					foundSong.downloads.push(user_id);
+					foundSong.save();	
+					
+					
+				}
+				//Song.find({"downloads.userid" : user_id}, function (err, allDownloads){ 
+				//if(allDownloads){
+					
+									
+					
+					
+					//}
+				//else
+					//{
+						//console.log("user_id - >" + user_id);
+						
+						
+						
+					//}
+				//}); 
 				res.download(file); 	
 			}
+		})
 		
-			})
-			
-		}
-	
-	
+	}
 });
 
 

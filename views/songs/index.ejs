@@ -31,7 +31,7 @@
 												Subgenre : <%=song.subgenre%>
 											</p>
 												<a href = "/songs/<%= song._id%>" class = "btn btn-primary">More Info</a>
-												<% if(currentUser && song.author.id.equals(currentUser._id)){%>
+												<% if(isAdmin || (currentUser && song.author.id.equals(currentUser._id))){%>
 													<a href = "/songs/<%= song._id %>/edit" class = "btn btn-warning">Edit</a>
 													<form id = "delete-form"  class = "pull-right" action = "/songs/<%= song._id %>?_method=DELETE" method = "POST">
 														<button class = "btn btn-danger">							

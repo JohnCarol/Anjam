@@ -28,14 +28,12 @@ const songSchema = new mongoose.Schema({
 			ref: "Mix"
 		}		
 	],
-	downloads: 
-		[{
-			userid:{
+	downloads: [
+			{
 				type: mongoose.Schema.Types.ObjectId,
 				ref: "User"	
-			},
-			username: String
-		}]	
+			}			
+		]
 });
 
 songSchema.pre('remove', async function() {

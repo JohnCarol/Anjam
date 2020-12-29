@@ -9,7 +9,6 @@ var UserSchema = new mongoose.Schema({
 });
 
 UserSchema.plugin(passportLocalMongoose);
-
 UserSchema.plugin(passportLocalMongooseEmail,{
 	usernameField: 'email',
 	

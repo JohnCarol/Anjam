@@ -5,14 +5,12 @@ const mixSchema = new mongoose.Schema({
 	description: String,	
 	length: String,	
 	fileUrl: String,
-	downloads: [{
-				userid : {
-					
-					type : mongoose.Schema.Types.ObjectId,
-					ref : 'User'
-				},
-				username : String				
-				}]
+	downloads: [
+			{
+				type: mongoose.Schema.Types.ObjectId,
+				ref: "User"	
+			}			
+		]
 });
 
 module.exports = mongoose.model("Mix", mixSchema);
