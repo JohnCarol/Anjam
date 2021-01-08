@@ -4,11 +4,11 @@
 		
 			<h1>Welcome to ANJAM!</h1>	
 			<p>Your one stop for all your music library needs</p>			
-			<%	if(isAdmin === true){%><p><a href = "/songs/new" class = "btn btn-primary btn-lg">Add new Song</a></p><%}%>
+			<%	if(isAdmin === true){%><p><a href = "/song/new" class = "btn btn-primary btn-lg">Add new Song</a></p><%}%>
 			<article>
-				<form action = "/songs" method="GET" class = "form-inline">
+				<form action = "/songs/1" method="GET" class = "form-inline">
 					<div class = "form-group">
-						<input type = "text" name = "search" placeholder = "Search...." class = "form-control">
+						<input type = "text" name = "search" placeholder = "Search...." class = "form-control" required>
 						<input type = "submit" value = "Search" class = "btn btn-default">
 					</div>
 				</form>
@@ -17,7 +17,8 @@
 	</header>
 	
 	<section>
-		
+		<h4>Found a total <span><%= numSongs %></span> results</h4>
+		<h4 class = "pageno pull-right">Page<span><%= currPage %></span>of <span><%= pages %></span></h4>
 		<% 	let x = 0;
 			songs.forEach(function(song){ %>
 			<article class="col-md-12 thumbnail caption-full">
@@ -30,10 +31,10 @@
 											<p>Genre : <%=song.genre%><br>
 												Subgenre : <%=song.subgenre%>
 											</p>
-												<a href = "/songs/<%= song._id%>" class = "btn btn-primary">More Info</a>
+												<a href = "/song/<%= song._id%>" class = "btn btn-primary">More Info</a>
 												<% if(isAdmin || (currentUser && song.author.id.equals(currentUser._id))){%>
-													<a href = "/songs/<%= song._id %>/edit" class = "btn btn-warning">Edit</a>
-													<form id = "delete-form"  class = "pull-right" action = "/songs/<%= song._id %>?_method=DELETE" method = "POST">
+													<a href = "/song/<%= song._id %>/edit" class = "btn btn-warning">Edit</a>
+													<form id = "delete-form"  class = "pull-right" action = "/song/<%= song._id %>?_method=DELETE" method = "POST">
 														<button class = "btn btn-danger">							
 														Delete
 													</button>
@@ -43,7 +44,33 @@
 								</section>				
 			</article>	
 		<% x++});%>	
-		
+		<div class="pagination">
+		<% if (currPage == 1 && pages > 1) { %> 
+		<a href="/songs/<%= parseInt(currPage) + 1 %>/?search=<%=searchVal%>"> 
+			<span>Page <%=  parseInt(currPage) + 1 %>
+			 <i class="icon ion-ios-arrow-forward"></i>
+			</span>
+		</a>
+		<% } else if (currPage < pages) { %>
+		<a href="/songs/<%= parseInt(currPage) - 1 %>/?search<%=searchVal%>">
+			<span><i class="icon ion-ios-arrow-back"></i>
+				Page <%= parseInt(currPage) - 1 %>
+			</span>
+		</a>
+		<a href="/songs/<%= parseInt(currPage) + 1 %>/?search<%=searchVal%>">
+			<span>
+				Page <%= parseInt(currPage) + 1 %>
+				<i class="icon ion-ios-arrow-forward"></i>
+			</span>
+		</a>
+		<% } else if (currPage == pages && pages > 1) { %>
+		<a href="/songs/<%= parseInt(currPage) - 1 %>/?search<%=searchVal%>">
+			<span>
+				<i class="icon ion-ios-arrow-back"></i>Page <%=parseInt(currPage) - 1 %>
+			</span>
+		</a>
+	<% } %>
+</div>
 	</section>		
 </main>
 <script type="text/javascript" src = "/js/scripts.js"></script>

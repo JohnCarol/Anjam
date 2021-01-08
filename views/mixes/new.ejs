@@ -3,7 +3,7 @@
 	<div class = "row">
 		<h1 style = "text-align:center">Adding mixes to <%=song.name%></h1>
 		<div style = "width: 30%; margin: 25px auto;">			
-			<form method = "POST" action = "/songs/<%=song._id%>/mixes" enctype="multipart/form-data">
+			<form method = "POST" action = "/song/<%=song._id%>/mixes" enctype="multipart/form-data">
 				<div class = "form-group">
 					<input class = "form-control" name = "name" type = "text" placeholder = "Mix Name" required>
 				</div>				
@@ -17,7 +17,7 @@
 					<input class = "btn btn-lg btn-default btn-block btn-primary" type = "submit">
 				</div>				
 			</form>			
-			<a href = "/songs/<%=song._id%>">Done Adding Mixes</a></div>			
+			<a href = "/song/<%=song._id%>">Done Adding Mixes</a></div>			
 	</div>		
 </div>
 <%- include("../partials/footer")%>

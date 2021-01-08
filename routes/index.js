@@ -160,7 +160,7 @@ router.get('/login', function(req,res){
 
 router.post("/login", passport.authenticate("local", 
 	{	
-		successRedirect: "/songs",
+		successRedirect: "/songs/1",
 		failureRedirect: "/login",
 		failureFlash: "Invalid Email Address or Password."
 	}), function(req, res){
@@ -171,7 +171,7 @@ router.get("/logout", function(req,res){
 	
 	req.logout();
 	req.flash("success", "Logged you out");
-	res.redirect("/songs");
+	res.redirect("/songs/1");
 	
 });
 

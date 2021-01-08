@@ -3,7 +3,7 @@
 	<div class = "row">
 		<h1 style = "text-align:center">Editing <%=song.name%></h1>
 		<div style = "width: 30%; margin: 25px auto;">			
-			<form method = "POST" action = "/songs/<%=song._id%>?_method=PUT">
+			<form method = "POST" action = "/song/<%=song._id%>?_method=PUT">
 				<div class = "form-group">
 					<label for = "name">Song Name</label><input class = "form-control" name = "song[name]" type = "text" value = "<%=song.name%>" required>
 				</div>
@@ -28,7 +28,7 @@
 				</div>				
 			</form>	
 			
-			<A href = "/songs/<%=song._id%>">Back</A></div>			
+			<A href = "/song/<%=song._id%>">Back</A></div>			
 	</div>		
 </div>
 <%- include("../partials/footer")%>

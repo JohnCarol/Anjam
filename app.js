@@ -1,21 +1,22 @@
 const mongoose = require("mongoose");
-var express = require("express");
-var app = express();
-var bodyParser = require("body-parser");
-var Song = require("./models/songs");
-var Tag = require("./models/tags");
-var seedDB = require("./seeds");
-var passport = require("passport");
-var LocalStrategy = require("passport-local");
-var User = require("./models/user");
-var methodOverride = require("method-override");
-var flash = require("connect-flash");
+const express = require("express");
+const app = express();
+const bodyParser = require("body-parser");
+const Song = require("./models/songs");
+const Tag = require("./models/tags");
+const seedDB = require("./seeds");
+const passport = require("passport");
+const LocalStrategy = require("passport-local");
+const User = require("./models/user");
+const methodOverride = require("method-override");
+const flash = require("connect-flash");
 
-var songRoutes = require('./routes/songs'),	
-	indexRoutes = require('./routes/index'),
-	mixesRoutes = require('./routes/mixes'),
-	downloadsRoutes = require('./routes/downloads'),
-	profileRoutes = require('./routes/profile');
+const 	songRoutes = require('./routes/song'),
+		songsRoutes = require('./routes/songs'),
+		indexRoutes = require('./routes/index'),
+		mixesRoutes = require('./routes/mixes'),
+		downloadsRoutes = require('./routes/downloads'),
+		profileRoutes = require('./routes/profile');
 
 
 /*mongoose.connect("mongodb://localhost/yelp_camp", {
@@ -75,12 +76,12 @@ app.use(function(req,res, next){
 })
 
 app.use(indexRoutes);
-app.use("/songs", songRoutes);
-app.use("/songs/:id/mixes", mixesRoutes);
+app.use("/song", songRoutes);
+app.use("/songs", songsRoutes);
+app.use("/song/:id/mixes", mixesRoutes);
 app.use("/songs/:id/downloads", downloadsRoutes);
 app.use("/songs/:id/mixes/:mix_id/downloads", downloadsRoutes);
 app.use("/profile", profileRoutes);
-//app.use("/campgrounds/:id/comments", commentRoutes);
 
 var port = process.env.PORT || 3000;
 

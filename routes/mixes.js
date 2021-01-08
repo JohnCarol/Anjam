@@ -1,9 +1,9 @@
-var express = require('express');
-var router  = express.Router({mergeParams: true});
-var Song = require("../models/songs");
-var Tags = require("../models/tags");
-var Mix = require("../models/mixes");
-var middleware = require("../middleware");
+const express = require('express');
+const router  = express.Router({mergeParams: true});
+const Song = require("../models/songs");
+const Tags = require("../models/tags");
+const Mix = require("../models/mixes");
+const middleware = require("../middleware");
 const formidable = require("formidable");
 const mp3Duration = require('mp3-duration')
 
@@ -45,7 +45,7 @@ router.post('/', middleware.checkAuthentication, (req,res)=>{
 			if(err)
 				{
 					console.log(err);
-					res.redirect("/songs");
+					res.redirect("/songs/1");
 				}else
 				{
 						let destFolder = '/public/media/uploads/tracks/'+ fileName;
@@ -117,7 +117,7 @@ router.put('/:mix_id', middleware.checkMixDetails, (req,res)=>{
 				res.redirect('back');
 			}else
 			{
-				res.redirect("/songs/"+req.params.id)		;
+				res.redirect("/song/"+req.params.id)		;
 			}
 	})
 });

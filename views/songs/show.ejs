@@ -4,7 +4,7 @@
 	
 		<section class = "col-md-12 thumbnail caption-full">
 			<header class = "jumbotron">
-					<form  class = "pull-right" id = "download-form" action = "/songs/<%= song._id %>/downloads" method = "POST">								
+					<form  class = "pull-right" id = "download-form" action = "/song/<%= song._id %>/downloads" method = "POST">								
 								<%let sdl = "Download";	
 									//console.log("-->is curr" + currentUser);	
 						 			if(currentUser)
@@ -39,8 +39,8 @@
 						<p><%=song.description%></p>
 					</div>
 					<% if(isAdmin || (currentUser && song.author.id.equals(currentUser._id))){%>
-							<a href = "/songs/<%= song._id %>/edit" class = "btn btn-warning">Edit</a>
-							<form id = "delete-form" action = "/songs/<%= song._id %>?_method=DELETE" method = "POST">
+							<a href = "/song/<%= song._id %>/edit" class = "btn btn-warning">Edit</a>
+							<form id = "delete-form" action = "/song/<%= song._id %>?_method=DELETE" method = "POST">
 								<button class = "btn btn-danger">							
 									Delete
 								</button>
@@ -57,12 +57,12 @@
 							let dl = "Download";
 					
 					%>
-					<div class = "row" id = "/songs/<%=song._id%>/mixes/<%=mix._id%>">				
+					<div class = "row" id = "/song/<%=song._id%>/mixes/<%=mix._id%>">				
 						<div class = "col-md-12">
 							<div class = "thumbnail">					
 								<div class = "caption-full">
 							<h3><%= mix.name%></h3>
-							<form  class = "pull-right" id = "download-form" action = "/songs/<%= song._id %>/mixes/<%=mix._id%>/downloads" method = "POST">							
+							<form  class = "pull-right" id = "download-form" action = "/song/<%= song._id %>/mixes/<%=mix._id%>/downloads" method = "POST">							
 								<%
 									
 						 			if(currentUser)
@@ -88,11 +88,11 @@
 								<p><%= mix.description %></p>
 								<% if(isAdmin || (currentUser && song.author.id.equals(currentUser._id))){%>
 								<a class = "btn btn-xs btn-warning" 
-								   href = "/songs/<%=song._id%>/mixes/<%=mix._id%>/edit">
+								   href = "/song/<%=song._id%>/mixes/<%=mix._id%>/edit">
 								Edit
 								</a>
 							
-								<button class="btn btn-xs btn-danger delete-item" data-record-title="<%= mix.name%>" data-record-id="/songs/<%=song._id%>/mixes/<%=mix._id%>?_method=DELETE" data-toggle="modal" data-target="#confirm-delete">
+								<button class="btn btn-xs btn-danger delete-item" data-record-title="<%= mix.name%>" data-record-id="/song/<%=song._id%>/mixes/<%=mix._id%>?_method=DELETE" data-toggle="modal" data-target="#confirm-delete">
 		  							Delete
 								</button>
 							
@@ -103,7 +103,7 @@
 						</div>		
 					</div>		
 					<% x++}) %>		
-			        <% if(isAdmin || (currentUser && song.author.id.equals(currentUser._id))){%><div><a class = "btn btn-primary btn-large btn-block" href = "/songs/<%=song.id%>/mixes/new">ADD A NEW MIX</a></div> <%}%>	
+			        <% if(isAdmin || (currentUser && song.author.id.equals(currentUser._id))){%><div><a class = "btn btn-primary btn-large btn-block" href = "/song/<%=song.id%>/mixes/new">ADD A NEW MIX</a></div> <%}%>	
 				
 			</div>			
 			

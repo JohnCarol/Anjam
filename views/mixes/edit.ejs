@@ -3,7 +3,7 @@
 	<div class = "row">
 		<h1 style = "text-align:center">Editing <%=mix.name%></h1>
 		<div style = "width: 30%; margin: 25px auto;">			
-			<form method = "POST" action = "/songs/<%=song_id%>/mixes/<%=mix._id%>?_method=PUT">
+			<form method = "POST" action = "/song/<%=song_id%>/mixes/<%=mix._id%>?_method=PUT">
 				<div class = "form-group">
 					<label for = "mix[name]">Mix Name</label>
 					<input class = "form-control" name = "mix[name]" id = "mix[name]" type = "text" value = "<%=mix.name%>" required>

@@ -2,15 +2,16 @@
 <main class = "container">
 	<section class = "row">
 		<h1 style = "text-align:center">User Profile</h1>
-		<div style = "width: 60%; margin: 15px auto;">			
-			<form method="POST" action = "/profile/update">
+		<div style = "width: 60%; margin: 15px auto;">
+			
+			<form method="POST" action = "/profile/<%=currentUser._id%>?_method=PUT">
 				<div class = "form-group">
-					<label for = "User[username]">Display Name</label>
-					<input value = "<%=currentUser.username%>" id = "User[username]" class = "form-control" name = "username" type = "text" placeholder = "User Name" required>
+					<label for = "username">Display Name</label>
+					<input value = "<%=currentUser.username%>" name = "user[username]" class = "form-control" id = "username" type = "text" placeholder = "User Name" required>
 				</div>
 				<div class = "form-group">
-					<label for = "User[email]">Email Address</label>
-					<input id = "User[email]" disabled class = "form-control" name = "email" type = "email" placeholder = "Email Address" value = "<%=currentUser.email%>">
+					<label for = "email">Email Address</label>
+					<input id = "email" disabled class = "form-control" name = "user[email]" type = "email" placeholder = "Email Address" value = "<%=currentUser.email%>">
 				</div>
 				<div class = "form-group">
 					<input class = "btn btn-lg btn-default btn-block btn-primary" type = "submit" value = "Update">
@@ -37,7 +38,7 @@
 					let x = 0;
 					songs.forEach(function(song){ %>
 					<tr>
-						<td><%= song.name%></td>
+						<td><a href = "/songs/<%= song._id %>"><%= song.name%></a></td>
 						<td><%= song.genre%></td>
 						<td><%= song.length%></td>	
 						<td>

@@ -2,6 +2,11 @@ body {
 	padding-top: 90px;
 }
 
+.pageno{
+	
+	display: inline;
+}
+
 .thumbnail img{
 	
 	width : 100%;	

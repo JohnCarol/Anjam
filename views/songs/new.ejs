@@ -3,7 +3,7 @@
 	<div class = "row">
 		<h1 style = "text-align:center">New Song</h1>
 		<div style = "width: 30%; margin: 25px auto;">			
-			<form method = "POST" action = "/songs" enctype="multipart/form-data">
+			<form method = "POST" action = "/song" enctype="multipart/form-data">
 				<div class = "form-group">
 					<input class = "form-control" name = "name" type = "text" placeholder = "Name" required>
 				</div>
@@ -27,7 +27,7 @@
 				</div>				
 			</form>	
 			
-			<A href = "/songs">Back</A></div>			
+			<A href = "/songs/1">Back</A></div>			
 	</div>		
 </div>
 <%- include("../partials/footer")%>
