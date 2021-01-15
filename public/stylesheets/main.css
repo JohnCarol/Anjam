@@ -1,7 +1,10 @@
 body {
 	padding-top: 90px;
 }
-
+.songdata{
+	
+	padding-top: 5px;
+}
 .pageno{
 	
 	display: inline;

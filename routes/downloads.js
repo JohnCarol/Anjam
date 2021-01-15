@@ -22,7 +22,8 @@ router.post('/', middleware.isLoggedIn, (req,res)=>{
 	
 	if(mix_id)
 		{
-			let id = mix_id;
+			id = mix_id;
+			let songid = req.params.id;
 			Mix.findById(id, function(err,foundMix){
 
 				if(err)
@@ -50,6 +51,12 @@ router.post('/', middleware.isLoggedIn, (req,res)=>{
 						console.log('Newly downloaded mix');
 						foundMix.downloads.push(user_id);
 						foundMix.save();	
+						
+						Song.findById(songid, function(err,foundSong){
+							
+							foundSong.downloads.push(user_id);
+							foundSong.save();
+						});
 					} 
 				res.download(file); 	
 				}

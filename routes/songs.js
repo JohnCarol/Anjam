@@ -38,7 +38,7 @@ router.get("/:page", async(req,res,next)=>{
 				}
 			}else
 			{	
-					console.log('normal');
+				console.log('normal');
 				const allSongs = await Song.find({}).skip((resPerPage * page) - resPerPage).limit(resPerPage);
 				
 				const numOfSongs = await Song.countDocuments({});

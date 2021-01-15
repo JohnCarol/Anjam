@@ -79,8 +79,8 @@ app.use(indexRoutes);
 app.use("/song", songRoutes);
 app.use("/songs", songsRoutes);
 app.use("/song/:id/mixes", mixesRoutes);
-app.use("/songs/:id/downloads", downloadsRoutes);
-app.use("/songs/:id/mixes/:mix_id/downloads", downloadsRoutes);
+app.use("/song/:id/downloads", downloadsRoutes);
+app.use("/song/:id/mixes/:mix_id/downloads", downloadsRoutes);
 app.use("/profile", profileRoutes);
 
 var port = process.env.PORT || 3000;

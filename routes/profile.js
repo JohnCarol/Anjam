@@ -1,32 +1,42 @@
-let express = require('express');
-let router  = express.Router({mergeParams: true});
-let user = require("../models/user");
-let Song = require("../models/songs");
+const express = require('express');
+const router  = express.Router({mergeParams: true});
+const user = require("../models/user");
+const Songs = require("../models/songs");
+const Mixes = require("../models/mixes");
 let middleware = require("../middleware");
 
-router.get('/', middleware.isLoggedIn, function(req,res){
+router.get('/', middleware.isLoggedIn, async(req,res,next)=>{
 	
 	let id = req.user._id;
 	//console.log('heret');	
 	
-	Song.find({'downloads' : id}).populate('mixes').exec(function(err,allSongs){
+	/*Song.find({'downloads' : id}).populate('mixes').exec(function(err,allSongs){
 		if(err || !allSongs)
 			{
 				console.log('not found');			
 			}else
 			{
 				//words.filter(word => word.length > 6);
-				let mixDownloads = allSongs;
+				let songMixes = allSongs;
 				//allSongs.mixes = allSongs.mixes.downloads.filter(mix => )
 				//console.log(allSongs.downloads);	
 				//console.log(mixDownloads);
 			}
 		res.render('profile/show', {songs:allSongs});
-	});
-	
-	
+	});*/
+	try{
+		const allSongs = await Songs.find({'downloads' : id}).populate({path: 'mixes', match:{'downloads' : id}})
+		
+		//const allMixes = await Mixes.find({'downloads' : id}).populate('mixes');
+		
+		
+		res.render('profile/show', {songs:allSongs});
+	}catch(err)
+	{			
+			throw new Error(err);		
+	}
 		   
-		   });
+});
 
 router.put("/:id", middleware.isLoggedIn, function(req,res){	
 	

@@ -1,7 +1,5 @@
 <%- include("../partials/header")%>
 <main class = "container">
-	
-	
 		<section class = "col-md-12 thumbnail caption-full">
 			<header class = "jumbotron">
 					<form  class = "pull-right" id = "download-form" action = "/song/<%= song._id %>/downloads" method = "POST">								
@@ -29,14 +27,28 @@
 								</button>
 					</form>
 					<div class = "mixbuttons" id = "<%= song.fileUrl%>">
-						<h3><a><%=song.name %></a></h3>	
+						<h3><%=song.name %></h3>	
 						<button class = "play"  name = "0"><span class = "glyphicon glyphicon-play"></span></button>
 						<button class = "pause"  name = "0"><span class = "glyphicon glyphicon-pause"></span></button>
 						<button class = "stop"  name = "0"><span class = "glyphicon glyphicon-stop"></span></button>	
-						<p>
-							Genre: <%= song.genre%> | BPM: <%= song.bpm%>
-						</p>
-						<p><%=song.description%></p>
+						
+						<p class = "songdata text-left">
+							<small>Genre : <%=song.genre%><br>
+									Subgenre : <%=song.subgenre%>
+							</small>
+							</p>
+						<div class = "panel panel-default">
+							<div class = "panel-heading">
+								<h3 class = "panel-title">
+									Details	
+								</h3>								
+							</div>
+							<div class = "panel-body">
+								<small><%=song.description%></small>	
+							</div>
+							
+						</div>
+						
 					</div>
 					<% if(isAdmin || (currentUser && song.author.id.equals(currentUser._id))){%>
 							<a href = "/song/<%= song._id %>/edit" class = "btn btn-warning">Edit</a>

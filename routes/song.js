@@ -1,13 +1,13 @@
-var express = require('express');
-var router  = express.Router({mergeParams: true});
-var Song = require("../models/songs");
-var Tags = require("../models/tags");
-var middleware = require("../middleware");
-var fileDownload = require("js-file-download");
+const express = require('express');
+const router  = express.Router({mergeParams: true});
+const Song = require("../models/songs");
+const Tags = require("../models/tags");
+const middleware = require("../middleware");
+const fileDownload = require("js-file-download");
 const formidable = require("formidable");
 const mp3Duration = require('mp3-duration')	
 const {Howl, Howler} = require('howler');
-var isAdmin = '';
+let isAdmin = '';
 
 router.post("/", middleware.isLoggedIn, function(req,res){	
 	
