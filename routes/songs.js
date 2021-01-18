@@ -3,67 +3,63 @@ const router  = express.Router({mergeParams: true});
 const Song = require("../models/songs");
 const middleware = require("../middleware");
 
-let isAdmin = '';
-
 router.get("/:page", async(req,res,next)=>{
 
-	const resPerPage = 1;
-	const page = req.params.page;	
+	const resPerPage = 9;
+	const page = req.params.page;
+	let isAdmin = '';
 	
-	try{
-			if(req.query.search)
-			{				
-					console.log('search');
-				const searchQuery = req.query.search,
-   				regex = new RegExp(escapeRegex(req.query.search), 'gi');
-				
-				const allSongs = await Song.find({genre: regex}).skip((resPerPage * page) - resPerPage).limit(resPerPage);
-				
-				const numOfSongs = await Song.countDocuments({genre: regex});
-				
-				if(numOfSongs < 1)
-				{						
-
-					req.flash('error', 'Sorry, that search returned no results...!');
-					return res.redirect('/songs/1');
-				}else{
-			
-					if(req.user){
-						 isAdmin = req.user.isAdmin;
-					}else{
-						 isAdmin = false;
-					}
-			
-				res.render("songs/index",{songs:allSongs, isAdmin:isAdmin, numSongs: numOfSongs, currPage: page, searchVal:req.query.search, pages: 			Math.ceil(numOfSongs / resPerPage)});			
-				}
-			}else
-			{	
-				console.log('normal');
-				const allSongs = await Song.find({}).skip((resPerPage * page) - resPerPage).limit(resPerPage);
-				
-				const numOfSongs = await Song.countDocuments({});
-				
-				if(numOfSongs < 1)
-				{						
-
-					req.flash('error', 'Sorry, that search returned no results...!');
-					return res.redirect('/songs/1');
-				}else{
-			
-					if(req.user){
-						 isAdmin = req.user.isAdmin;
-					}else{
-						 isAdmin = false;
-					}
-			
-				res.render("songs/index",{songs:allSongs, searchVal:"", isAdmin:isAdmin, numSongs: numOfSongs, currPage: page, pages: 			Math.ceil(numOfSongs / resPerPage)});			
-				}				
-			}		
+	if(req.user){
+		isAdmin = req.user.isAdmin;
+			}else{
+		isAdmin = false;
 		}
-		catch(err)
-		{			
-			throw new Error(err);		
-		}	
+	if(page)
+		{
+		try{
+				if(req.query.search)
+				{				
+						console.log('search');
+					const searchQuery = req.query.search,
+					regex = new RegExp(escapeRegex(req.query.search), 'gi');
+
+					const allSongs = await Song.find({genre: regex}).skip((resPerPage * page) - resPerPage).limit(resPerPage);
+
+					const numOfSongs = await Song.countDocuments({genre: regex});
+
+					if(numOfSongs < 1)
+					{						
+
+						req.flash('error', 'Sorry, that search returned no results...!');
+						return res.redirect('/songs/1');
+					}else{						
+
+					res.render("songs/index",{songs:allSongs, isAdmin:isAdmin, numSongs: numOfSongs, currPage: page, searchVal:req.query.search, pages: 			Math.ceil(numOfSongs / resPerPage)});			
+					}
+				}else
+				{	
+					//console.log('normal');
+					const allSongs = await Song.find({}).skip((resPerPage * page) - resPerPage).limit(resPerPage);
+
+					const numOfSongs = await Song.countDocuments({});
+
+					if(numOfSongs < 1)
+					{						
+
+						//req.flash('error', 'Sorry, that search returned no results...!');
+						res.render("songs/index",{songs:"",isAdmin:isAdmin,numSongs: numOfSongs, currPage: page, pages: 			Math.ceil(numOfSongs / resPerPage)});
+						
+					}else{						
+
+					res.render("songs/index",{songs:allSongs, searchVal:"", isAdmin:isAdmin, numSongs: numOfSongs, currPage: page, pages: 			Math.ceil(numOfSongs / resPerPage)});			
+					}				
+				}		
+			}
+			catch(err)
+			{			
+				throw new Error(err);		
+			}
+		}
 });	
 
 function escapeRegex(text) {

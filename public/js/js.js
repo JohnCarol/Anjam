@@ -1,3 +1,9 @@
+
+function getCollName(sel) {
+  const collName = sel.options[sel.selectedIndex].text;
+  document.getElementById('collName').value = collName;	
+}
+
 $('#confirm-delete').on('click', '.btn-ok', function(e) {
 
   var $modalDiv = $(e.delegateTarget);

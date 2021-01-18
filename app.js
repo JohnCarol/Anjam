@@ -11,7 +11,8 @@ const User = require("./models/user");
 const methodOverride = require("method-override");
 const flash = require("connect-flash");
 
-const 	songRoutes = require('./routes/song'),
+const 	collectionRoutes = require('./routes/collections'),
+		songRoutes = require('./routes/song'),
 		songsRoutes = require('./routes/songs'),
 		indexRoutes = require('./routes/index'),
 		mixesRoutes = require('./routes/mixes'),
@@ -76,6 +77,7 @@ app.use(function(req,res, next){
 })
 
 app.use(indexRoutes);
+app.use("/collections", collectionRoutes);
 app.use("/song", songRoutes);
 app.use("/songs", songsRoutes);
 app.use("/song/:id/mixes", mixesRoutes);

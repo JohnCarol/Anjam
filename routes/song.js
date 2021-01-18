@@ -1,6 +1,7 @@
 const express = require('express');
 const router  = express.Router({mergeParams: true});
 const Song = require("../models/songs");
+const Collection = require("../models/collections");
 const Tags = require("../models/tags");
 const middleware = require("../middleware");
 const fileDownload = require("js-file-download");
@@ -9,9 +10,11 @@ const mp3Duration = require('mp3-duration')
 const {Howl, Howler} = require('howler');
 let isAdmin = '';
 
+
 router.post("/", middleware.isLoggedIn, function(req,res){	
 	
-	const fs =require("fs");	
+	//const fspromises = require("fs").promises;	
+	const fs = require("fs");
 	const form = new formidable({keepExtensions:true, multiples: true});	
 	
 	form.parse(req, (err,fields, files) =>{
@@ -21,42 +24,73 @@ router.post("/", middleware.isLoggedIn, function(req,res){
 			return;
 		}	
 	
-	var name 		= fields.name;	
-	var fileName 	= files.filetoupload.name;
-	var filePath 	= files.filetoupload.path;
-	var subgenre 	= fields.subgenre;
-	var genre 		= fields.genre;
-	var desc 		= fields.description;	
-	var bpm 		= fields.bpm;
-	var newSong		= {};	
+	let name 		= fields.name;	
+	let fileName 	= files.filetoupload.name;
+	let filePath 	= files.filetoupload.path;
+	let subgenre 	= fields.subgenre;
+	let genre 		= fields.genre;
+	let desc 		= fields.description;	
+	let collection 	= fields.collection;	
+	let collName 	= fields.collectionName;
+	let bpm 		= fields.bpm;
+	let newSong		= {};	
 	
-	var author = {
+	let author = {
 		id: req.user._id,
 		username : req.user.username		
-	}
-	
-	//Create a folder in uploads with todays 	
-	let destFolder = '/public/media/uploads/tracks/'+ fileName;
-	
-	fs.copyFile(filePath, __basedir + destFolder, (err) => { 
-  		if (err) { 
-    				console.log("Error Found:", err); 
-  				}   				
-	});		
+	}		
+			
 		
-	var len = mp3Duration(filePath, function (err, duration) {
+	let len = mp3Duration(filePath, function (err, duration) {
 		
 		if (err){ return console.log(err.message);}			
 		});
 	len.then(function(value)
 		{
-			newSong = {name: name, bpm: bpm, length: toMinutes(value), fileUrl: destFolder, description: desc,genre:genre,subgenre:subgenre, author:author};
+			collName = collName.replace(" ","");
+			const songName = name.replace(" ","");
+			//Create a folder in uploads with collection name.
+			const dirToCreate = '/public/media/uploads/tracks/'+collName+'/'+songName+'/';
+			const destFolder = dirToCreate + fileName;
+		
+			newSong = {name: name, bpm: bpm, length: toMinutes(value), fileDir: dirToCreate, fileUrl: destFolder, description: desc,genre:genre,subgenre:subgenre, author:author};
 		
 			Song.create(newSong,function(err,newlyCreated){
 				if(err){
 						console.log(err);
-					}else{
-						res.render('mixes/new', {song : newlyCreated});
+					}else{						
+						
+						Collection.findByIdAndUpdate(collection, {$set: {songs: newlyCreated._id}},{new:true}, function(err, updatedCollection){
+						
+						if(err){
+							res.redirect("/song/new");
+						}else{
+							
+							fs.mkdir(
+									  __basedir + dirToCreate,
+									  {
+										recursive: true,
+										mode: 0o77
+									  },
+									  err => {
+										if (err) {
+										  throw err;
+										}
+										console.log("Directory created!");
+										fs.copyFile(filePath, __basedir + dirToCreate + fileName, (err) => { 
+										if (err) { 
+											console.log("Error Found:", err); 
+											}   				
+										}); 
+									  }
+									); 
+							
+							//const createDir = ()
+							res.render('mixes/new', {song : newlyCreated});
+						}		
+	})
+						
+						
 					//res.redirect('/songs');
 					}
 			})
@@ -65,11 +99,23 @@ router.post("/", middleware.isLoggedIn, function(req,res){
 	})		
 });
 
-router.get("/new", middleware.isLoggedIn, function(req,res){
+
+router.get("/new", async(req,res,next)=>{	
 	
-	res.render("songs/new");
+	try{		
+		const allCollections = await Collection.find({}).sort( {name: 1});	
+		const countCollections = await Collection.countDocuments({});
+		
+		res.render("songs/new",{collections: allCollections, numCollections: countCollections});
+	}catch(err)
+	{
+		throw new Error(err);
+	}
 	
-}); 
+	
+});
+	
+
 
 router.get("/:id", function(req,res){	
 	
@@ -78,7 +124,7 @@ router.get("/:id", function(req,res){
 		if(err || !song)
 			{
 				req.flash('error', 'Sorry, that song does not exist!');
-            	return res.redirect('/songs/1');
+            	res.redirect('/songs/1');
 			}
 			else
 			{
@@ -95,9 +141,9 @@ router.get("/:id", function(req,res){
 					 }else
 					 {
 						 if(req.user){
-								let isAdmin = req.user.isAdmin;
+								isAdmin = req.user.isAdmin;
 							}else{
-								let isAdmin = false;
+								isAdmin = false;
 								}
 						 
 						 //console.log('normal');

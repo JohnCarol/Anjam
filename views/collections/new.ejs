@@ -1,0 +1,21 @@
+<%- include("../partials/header")%>
+<div class = "container">
+	<div class = "row">
+		<h1 style = "text-align:center">New Collection</h1>
+		<div style = "width: 30%; margin: 25px auto;">			
+			<form method = "POST" action = "/collections">
+				<div class = "form-group">
+					<input class = "form-control" name = "collection[name]" type = "text" placeholder = "Collection Name" required>
+				</div>
+				<div class = "form-group">
+					<textarea class = "form-control" name = "collection[description]" type = "text" placeholder = "Description"></textarea>	
+				</div>								
+				<div class = "form-group">
+					<input class = "btn btn-lg btn-default btn-block btn-primary" type = "submit">
+				</div>				
+			</form>	
+			
+			<A href = "/song/new">Back</A></div>			
+	</div>		
+</div>
+<%- include("../partials/footer")%>

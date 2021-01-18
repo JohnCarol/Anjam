@@ -48,13 +48,13 @@ router.post('/', middleware.checkAuthentication, (req,res)=>{
 					res.redirect("/songs/1");
 				}else
 				{
-						let destFolder = '/public/media/uploads/tracks/'+ fileName;
+						let destFolder = foundSong.fileDir;
 
-						fs.copyFile(filePath, __basedir + destFolder, (err) => { 
+						fs.copyFile(filePath, __basedir + destFolder +fileName, (err) => { 
 						if (err) { 
 						console.log("Error Found:", err); 
-						}   				
-				});		
+							}   				
+						});		
 
 						var len = mp3Duration(filePath, function (err, duration) {
 
@@ -63,7 +63,7 @@ router.post('/', middleware.checkAuthentication, (req,res)=>{
 						len.then(function(value)
 						{				
 							var mixLngth = toMinutes(value);
-							newSong = {name: name, length: mixLngth, fileUrl: destFolder, description: desc};
+							newSong = {name: name, length: mixLngth, fileUrl: destFolder+fileName, description: desc};
 							Mix.create(newSong, function(err,mix){
 									 if(err){
 										 console.log(err);

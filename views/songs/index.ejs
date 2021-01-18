@@ -19,35 +19,42 @@
 	<section>
 		<span class = "pull-right"> - <span><%= numSongs %></span> results</span>
 		<span class = "pageno pull-right">Page<span><%= currPage %></span>of <span><%= pages %></span></span>
-		<% 	let x = 0;
-			songs.forEach(function(song){ %>
-			<article class="col-md-12 thumbnail caption-full">
-								<section class="row container-fluid">									
-										<article class = "mixbuttons" id = "<%= song.fileUrl%>">											
-											<h4><%= song.name %></h4>											
-											<button class = "play"  name = "<%= x %>"><span class = "glyphicon glyphicon-play"></span></button>
-											<button class = "pause"  name = "<%= x %>"><span class = "glyphicon glyphicon-pause"></span></button>
-											<button class = "stop"  name = "<%= x %>"><span class = "glyphicon glyphicon-stop"></span></button>	
-											<span class = "pull-right">
-												BPM: <%=song.bpm%>
-											</span>
-											
-											<p class = "songdata text-left">Genre : <%=song.genre%><br>
-												Subgenre : <%=song.subgenre%>
-											</p>
-												<a href = "/song/<%= song._id%>" class = "btn btn-primary">More Info</a>
-												<% if(isAdmin || (currentUser && song.author.id.equals(currentUser._id))){%>
-													<a href = "/song/<%= song._id %>/edit" class = "btn btn-warning">Edit</a>
-													<form id = "delete-form"  class = "pull-right" action = "/song/<%= song._id %>?_method=DELETE" method = "POST">
-														<button class = "btn btn-danger">							
-														Delete
-													</button>
-													</form>							
-												<%} %>											
-										</article>																	
-								</section>				
-			</article>	
-		<% x++});%>	
+		<% 	
+			if(songs)
+			{	let x = 0;
+				songs.forEach(function(song){ %>
+				<article class="col-md-12 thumbnail caption-full">
+									<section class="row container-fluid">									
+											<article class = "mixbuttons" id = "<%= song.fileUrl%>">											
+												<h4><%= song.name %></h4>											
+												<button class = "play"  name = "<%= x %>"><span class = "glyphicon glyphicon-play"></span></button>
+												<button class = "pause"  name = "<%= x %>"><span class = "glyphicon glyphicon-pause"></span></button>
+												<button class = "stop"  name = "<%= x %>"><span class = "glyphicon glyphicon-stop"></span></button>	
+												<span class = "pull-right">
+													BPM: <%=song.bpm%>
+												</span>
+
+												<p class = "songdata text-left">Genre : <%=song.genre%><br>
+													Subgenre : <%=song.subgenre%>
+												</p>
+													<a href = "/song/<%= song._id%>" class = "btn btn-primary">More Info</a>
+													<% if(isAdmin || (currentUser && song.author.id.equals(currentUser._id))){%>
+														<a href = "/song/<%= song._id %>/edit" class = "btn btn-warning">Edit</a>
+														<form id = "delete-form"  class = "pull-right" action = "/song/<%= song._id %>?_method=DELETE" method = "POST">
+															<button class = "btn btn-danger">							
+															Delete
+														</button>
+														</form>							
+													<%} %>
+											</article>									
+									</section>				
+				</article>	
+			<% x++});
+			}else{%>
+				<h3 class ="text-center">No songs found..</h3>
+			<%}
+		
+		%>	
 		<div class="pagination">
 		<% if (currPage == 1 && pages > 1) { %> 
 		<a href="/songs/<%= parseInt(currPage) + 1 %>/?search=<%=searchVal%>"> 

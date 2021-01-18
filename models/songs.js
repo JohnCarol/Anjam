@@ -9,6 +9,7 @@ const songSchema = new mongoose.Schema({
 	subgenre: String,
 	length: String,
 	fileUrl: String,
+	fileDir: String,
 	bpm: String,
 	author:{
 		id:{
