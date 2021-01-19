@@ -38,6 +38,7 @@
 				<tbody>
 					<% 
 					let x = 0;
+					let y = 1;
 					songs.forEach(function(song){ %>
 					<tr>
 						<td><a href = "/song/<%= song._id %>"><%= song.name%></a></td>
@@ -51,7 +52,7 @@
 						<td><%= song.genre%></td>
 						<td><%= song.bpm%></td>
 						<td><%= song.length%></td>	
-						<td><a class="btn btn-primary" role="button" data-toggle="collapse" href="#collapseMixes" aria-expanded="false" aria-controls="collapseExample">
+						<td><a class="btn btn-primary" role="button" data-toggle="collapse" href="#collapseMixes<%=x%>" aria-expanded="false" aria-controls="collapseExample">
   Mixes
 							</a></td>
 						
@@ -59,15 +60,15 @@
 					<% if(song.mixes){%>
 					<tr>
 						<td colspan = "6">							
-							<div class="collapse" id="collapseMixes">
+							<div class="collapse" id="collapseMixes<%=x%>">
 								<div class = "well">	
 
-									<% var y = 1;
+									<% x++;
 										song.mixes.forEach(function(mix){%>
 									<div class = "row" id = "/song/<%=song._id%>/mixes/<%=mix._id%>">				
 										<div class = "col-md-12">
 											<div class = "thumbnail">					
-												<div class = "mixbuttons" id = "<%= mix.fileUrl%>">
+												<div class = "mixButtonsDesc">
 
 														<%= mix.name%>
 
@@ -75,9 +76,9 @@
 
 													</form>
 													<div class = "mixbuttons" id = "<%= mix.fileUrl%>">
-														<button class = "play"  name = "<%= y %>"><span class = "glyphicon glyphicon-play"></span></button>
-														<button class = "pause"  name = "<%= y %>"><span class = "glyphicon glyphicon-pause"></span></button>
-														<button class = "stop"  name = "<%= y %>"><span class = "glyphicon glyphicon-stop"></span></button>	
+														<button class = "play"  name = "<%= x %>"><span class = "glyphicon glyphicon-play"></span></button>
+														<button class = "pause"  name = "<%= x %>"><span class = "glyphicon glyphicon-pause"></span></button>
+														<button class = "stop"  name = "<%= x %>"><span class = "glyphicon glyphicon-stop"></span></button>	
 													</div>
 
 													<!--<p><%= mix.description %></p>-->							
@@ -87,7 +88,7 @@
 											</div>
 										</div>		
 									</div>		
-						<% y++}) %>	 
+						<% x++}) %>	 
 								</div>	
 							</div>
 						</td>
@@ -96,9 +97,9 @@
 					<tr>
 						<td colspan = "5" class = "text-center">No mixes downloaded..</td>
 					</tr>	
-						
+					x++;	
 					<%}
-					x++; }); %>
+					 }); %>
 				</tbody>
 
 			</table>

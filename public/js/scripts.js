@@ -6,7 +6,7 @@ $(function(){
                           navigator.msGetUserMedia);
 	
 	
-	const mixdata = [];
+	let mixdata = [];
 	let fileName = "";
 	let isPlaying = [];
 	let isAdmin;
@@ -28,7 +28,7 @@ $(function(){
 					
 			});		
 	})
-	
+	console.log(mixdata);
 	/*let ctx = Howler.ctx;
 	let analyser = Howler.ctx.createAnalyser();
 	
@@ -89,7 +89,7 @@ $(function(){
 		})
 		
 		let id = $(this).attr("name");
-		
+		console.log(id);
 		$(this).closest('.thumbnail').addClass("playing");
 		
 		mixdata[id].sound.play();
