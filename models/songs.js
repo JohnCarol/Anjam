@@ -20,9 +20,9 @@ const songSchema = new mongoose.Schema({
 	},
 	tags: [
 		{
-			type: mongoose.Schema.Types.ObjectId,
-			ref: "Tag"		
-	}],
+    		type: String
+		}
+	],
 	mixes: [
 		{
 			type: mongoose.Schema.Types.ObjectId,
@@ -37,8 +37,8 @@ const songSchema = new mongoose.Schema({
 		]
 });
 
-songSchema.pre('remove', async function() {
-	await Mix.remove({
+songSchema.pre('deleteOne', async function() {
+	await Mix.deleteMany({
 		_id: {
 			$in: this.mixes
 		}

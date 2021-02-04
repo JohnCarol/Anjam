@@ -19,13 +19,17 @@ router.get("/:page", async(req,res,next)=>{
 		try{
 				if(req.query.search)
 				{				
-						console.log('search');
+						//console.log('search');
 					const searchQuery = req.query.search,
-					regex = new RegExp(escapeRegex(req.query.search), 'gi');
+					regex = new RegExp(escapeRegex(searchQuery), 'gi');
+					
+					console.log(regex);
+					
+					//{ $or: [{ name: "Rambo" }, { breed: "Pugg" }, { age: 2 }] },
+					//{ tags: { $in: ["appliances", "school"] } },
+					const allSongs = await Song.find({$or : [{tags:{$in:[regex]}}, {genre: regex}, {subgenre:regex}]}).skip((resPerPage * page) - resPerPage).limit(resPerPage);
 
-					const allSongs = await Song.find({genre: regex}).skip((resPerPage * page) - resPerPage).limit(resPerPage);
-
-					const numOfSongs = await Song.countDocuments({genre: regex});
+					const numOfSongs = await Song.countDocuments({$or : [{tags:{$in:[regex]}}, {genre: regex}, {subgenre:regex}]});
 
 					if(numOfSongs < 1)
 					{						

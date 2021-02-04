@@ -28,7 +28,7 @@ $(function(){
 					
 			});		
 	})
-	console.log(mixdata);
+	//console.log(mixdata);
 	/*let ctx = Howler.ctx;
 	let analyser = Howler.ctx.createAnalyser();
 	
@@ -90,7 +90,13 @@ $(function(){
 		
 		let id = $(this).attr("name");
 		console.log(id);
+		
+		
+		$(this).removeClass('play');
+		$(this).addClass('pause');
 		$(this).closest('.thumbnail').addClass("playing");
+		$(this).hide();
+		$(this).closest('.pause').show();
 		
 		mixdata[id].sound.play();
 		

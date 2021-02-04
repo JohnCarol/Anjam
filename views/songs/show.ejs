@@ -3,41 +3,30 @@
 		<section class = "col-md-12 thumbnail caption-full">
 			<header class = "jumbotron">
 					<form  class = "pull-right" id = "download-form" action = "/song/<%= song._id %>/downloads" method = "POST">								
-								<%let sdl = "Download";	
-									//console.log("-->is curr" + currentUser);	
+								<%let sdl = "Download";										
 						 			if(currentUser)
 									{
-										/*let dlUsers = song.downloads.filter(item => item.userid.toHexString().indexOf(currentUser._id) !== -1);
-									    if(dlUsers.length > 0)
-											{
-												
-											}
-											*/
-										
 										let found = song.downloads.indexOf(currentUser._id);
 										if(found !== -1)
 										{
 											sdl = "Song Downloaded"
 										}
-											//console.log(song.downloads);
 									}	
 										%>
-								<button class = "btn btn-normal">
+								<button class = "btn btn-normal downloadBtn">
 									<%=sdl%>
 								</button>
 					</form>
 					<div class = "mixbuttons" id = "<%= song.fileUrl%>">
-						<h3><%=song.name %></h3>	
-						<button class = "play"  name = "0"><span class = "glyphicon glyphicon-play"></span></button>
-						<button class = "pause"  name = "0"><span class = "glyphicon glyphicon-pause"></span></button>
-						<button class = "stop"  name = "0"><span class = "glyphicon glyphicon-stop"></span></button>	
-						
-						<p class = "songdata text-left">
+						<h3><%=song.name %></h3>						
+						<button class = "play"  name = "0"><span class = "glyphicon glyphicon-play sngBtns"></span></button>	
+						<button class = "stop"  name = "0"><span class = "glyphicon glyphicon-stop sngBtns"></span></button>
+						<p class = "text-left">
 							<small>Genre : <%=song.genre%><br>
 									Subgenre : <%=song.subgenre%>
 							</small>
-							</p>
-						<div class = "panel panel-default">
+						</p>
+						<div class = "panel panel-default details">
 							<div class = "panel-heading">
 								<h3 class = "panel-title">
 									Details	
@@ -46,9 +35,7 @@
 							<div class = "panel-body">
 								<small><%=song.description%></small>	
 							</div>
-							
 						</div>
-						
 					</div>
 					<% if(isAdmin || (currentUser && song.author.id.equals(currentUser._id))){%>
 							<a href = "/song/<%= song._id %>/edit" class = "btn btn-warning">Edit</a>
@@ -62,54 +49,47 @@
 			<div class = "well">	
 			
 					<% var x = 1;
-						
-								
-
 						song.mixes.forEach(function(mix){
-							let dl = "Download";
-					
+							let dl = "Download";					
 					%>
 					<div class = "row" id = "/song/<%=song._id%>/mixes/<%=mix._id%>">				
 						<div class = "col-md-12">
 							<div class = "thumbnail">					
 								<div class = "caption-full">
-							<h3><%= mix.name%></h3>
-							<form  class = "pull-right" id = "download-form" action = "/song/<%= song._id %>/mixes/<%=mix._id%>/downloads" method = "POST">							
-								<%
-									
-						 			if(currentUser)
-									{
-									
-										let found = mix.downloads.indexOf(currentUser._id);
-										if(found !== -1)
+							<span class = "sngTitle"><%= mix.name%></span>
+								<span class = "mixbuttons mixbuttonsShow" id = "<%= mix.fileUrl%>">
+									<button class = "play"  name = "<%= x %>"><span class = "glyphicon glyphicon-play sngBtns"></span></button>								
+									<button class = "stop"  name = "<%= x %>"><span class = "glyphicon glyphicon-stop sngBtns"></span></button>	
+								
+								<form  class = "pull-right" id = "download-form" action = "/song/<%= song._id %>/mixes/<%=mix._id%>/downloads" method = "POST">							
+									<%
+									if(currentUser)
 										{
-											dl = "Mix Downloaded";
-										}
-									}	
-										%>
-								<button class = "btn btn-normal">
-									<%=dl%>
+
+											let found = mix.downloads.indexOf(currentUser._id);
+											if(found !== -1)
+											{
+												dl = "Mix Downloaded";
+											}
+										}	
+									%>
+									<button class = "btn btn-sm btn-normal downloadBtn">
+										<%=dl%>
 								</button>
-							</form>
-							<div class = "mixbuttons" id = "<%= mix.fileUrl%>">
-								<button class = "play"  name = "<%= x %>"><span class = "glyphicon glyphicon-play"></span></button>
-								<button class = "pause"  name = "<%= x %>"><span class = "glyphicon glyphicon-pause"></span></button>
-								<button class = "stop"  name = "<%= x %>"><span class = "glyphicon glyphicon-stop"></span></button>	
-							</div>
-															
-								<p><%= mix.description %></p>
+								</form>
+							</span>
 								<% if(isAdmin || (currentUser && song.author.id.equals(currentUser._id))){%>
-								<a class = "btn btn-xs btn-warning" 
-								   href = "/song/<%=song._id%>/mixes/<%=mix._id%>/edit">
+							<a class = "btn btn-xs btn-warning" 
+							   href = "/song/<%=song._id%>/mixes/<%=mix._id%>/edit">
 								Edit
-								</a>
+							</a>
 							
-								<button class="btn btn-xs btn-danger delete-item" data-record-title="<%= mix.name%>" data-record-id="/song/<%=song._id%>/mixes/<%=mix._id%>?_method=DELETE" data-toggle="modal" data-target="#confirm-delete">
+							<button class="btn btn-xs btn-danger delete-item" data-record-title="<%= mix.name%>" data-record-id="/song/<%=song._id%>/mixes/<%=mix._id%>?_method=DELETE" data-toggle="modal" data-target="#confirm-delete">
 		  							Delete
-								</button>
+							</button>
 							
 							<%}%>
-							<hr>
+							
 						</div>
 						</div>
 						</div>		

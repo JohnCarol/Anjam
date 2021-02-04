@@ -8,7 +8,7 @@
 			<article>
 				<form action = "/songs/1" method="GET" class = "form-inline">
 					<div class = "form-group">
-						<input type = "text" name = "search" placeholder = "Search by genre.." class = "form-control" required>
+						<input type = "text" name = "search" placeholder = "Search..." class = "form-control" required>
 						<input type = "submit" value = "Search" class = "btn btn-default">
 					</div>
 				</form>
@@ -24,27 +24,29 @@
 			{	let x = 0;
 				songs.forEach(function(song){ %>
 				<article class="col-md-12 thumbnail caption-full">
-									<section class="row container-fluid">									
+									<section class="row container-fluid sngRow">									
 											<article class = "mixbuttons" id = "<%= song.fileUrl%>">											
-												<h4><%= song.name %></h4>											
+												
 												<button class = "play"  name = "<%= x %>"><span class = "glyphicon glyphicon-play"></span></button>
-												<button class = "pause"  name = "<%= x %>"><span class = "glyphicon glyphicon-pause"></span></button>
+												<!--<button class = "pause"  name = "<%= x %>" hidden><span class = "glyphicon glyphicon-pause"></span></button>-->
 												<button class = "stop"  name = "<%= x %>"><span class = "glyphicon glyphicon-stop"></span></button>	
+												<span><a class = "sngTitle" href = "/song/<%= song._id%>"><%= song.name %></a></span>
 												<span class = "pull-right">
-													BPM: <%=song.bpm%>
+													<%=song.genre%> | <%=song.subgenre%> | <%=song.bpm%> BPM
 												</span>
-
-												<p class = "songdata text-left">Genre : <%=song.genre%><br>
-													Subgenre : <%=song.subgenre%>
-												</p>
-													<a href = "/song/<%= song._id%>" class = "btn btn-primary">More Info</a>
-													<% if(isAdmin || (currentUser && song.author.id.equals(currentUser._id))){%>
-														<a href = "/song/<%= song._id %>/edit" class = "btn btn-warning">Edit</a>
-														<form id = "delete-form"  class = "pull-right" action = "/song/<%= song._id %>?_method=DELETE" method = "POST">
-															<button class = "btn btn-danger">							
+												<div>
+											
+													
+												<!--a href = "/song/<%= song._id%>" class = "btn btn-primary">More Info</a>-->
+												<% if(isAdmin || (currentUser && song.author.id.equals(currentUser._id))){%>
+													<a href = "/song/<%= song._id %>/edit" class = "btn btn-warning spacer">Edit</a>
+													<form id = "delete-form"  class = "pull-right spacer" action = "/song/<%= song._id %>?_method=DELETE" method = "POST">
+														<button class = "btn btn-danger">							
 															Delete
 														</button>
-														</form>							
+													</form>	
+												</div>
+																				
 													<%} %>
 											</article>									
 									</section>				

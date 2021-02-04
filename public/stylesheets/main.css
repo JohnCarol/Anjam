@@ -1,9 +1,35 @@
+html {
+  height: 100%;
+}
+
 body {
 	padding-top: 90px;
+	background-color: black;
+	min-height: 100%;
+	color: white;
 }
-.songdata{
+
+
+.jumbotron{
 	
+	background-image: linear-gradient(#9c0f00, white);
+	color: white;
+	
+}
+
+.songData{
+	color: black;
 	padding-top: 5px;
+}
+
+.sngBtns{	
+color:black;
+}
+
+.sngTitle{
+	
+	padding-left: 10px;
+	color: black;
 }
 .pageno{
 	
@@ -42,7 +68,7 @@ body {
 
 #delete-form{
 	
-		display:inline;
+	display:inline;
 	
 }
 
@@ -51,8 +77,37 @@ body {
 	
 }
 
+.mixbuttonsShow{
+	 padding: 9px;
+	 margin: 9px;
+}
+
 .mixbuttons{
 	 padding: 9px;
+	 margin: 9px;
+}
+.spacer{
+	margin-top: 10px;
+}
+
+.sngRow{	
+	
+	margin: 1px;	
+	color: black;
+}
+
+.sngRow:hover{
+	
+	background-color: #968887;
+}
+
+.details{
+	
+	color: black;
+}
+.downloadBtn{
+	
+	color: black;
 }
 
 .mixButtonsDesc{
@@ -72,13 +127,6 @@ body {
 .valign{
 	
 	vertical-align: middle;
-}
-
-.eq{
-	
-	
-	padding: 9px;
-	display: none;
 }
 
 .btnOptions{

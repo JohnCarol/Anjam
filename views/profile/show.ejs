@@ -41,17 +41,16 @@
 					let y = 1;
 					songs.forEach(function(song){ %>
 					<tr>
-						<td><a href = "/song/<%= song._id %>"><%= song.name%></a></td>
+						<td style = "vertical-align:middle"><a href = "/song/<%= song._id %>"><%= song.name%></a></td>
 						<td>
 							<div class = "mixbuttons" id = "<%= song.fileUrl%>">
-								<button class = "play"  name = "<%= x %>"><span class = "glyphicon glyphicon-play"></span></button>
-								<button class = "pause"  name = "<%= x %>"><span class = "glyphicon glyphicon-pause"></span></button>
-								<button class = "stop"  name = "<%= x %>"><span class = "glyphicon glyphicon-stop"></span></button>	
+								<button class = "play sngBtns"  name = "<%= x %>"><span class = "glyphicon glyphicon-play"></span></button>								
+								<button class = "stop sngBtns"  name = "<%= x %>"><span class = "glyphicon glyphicon-stop"></span></button>	
 							</div>
 						</td>
-						<td><%= song.genre%></td>
-						<td><%= song.bpm%></td>
-						<td><%= song.length%></td>	
+						<td style = "vertical-align:middle" class = "mixbuttons"><%= song.genre%></td>
+						<td style = "vertical-align:middle" class = "mixbuttons"><%= song.bpm%></td>
+						<td style = "vertical-align:middle" class = "mixbuttons"><%= song.length%></td>	
 						<td><a class="btn btn-primary" role="button" data-toggle="collapse" href="#collapseMixes<%=x%>" aria-expanded="false" aria-controls="collapseExample">
   Mixes
 							</a></td>

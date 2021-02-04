@@ -33,7 +33,9 @@ router.post("/", middleware.isLoggedIn, function(req,res){
 	let collection 	= fields.collection;	
 	let collName 	= fields.collectionName;
 	let bpm 		= fields.bpm;
-	let newSong		= {};	
+	let tags		= fields.tags.split(" ");		
+	let newSong		= {};
+		
 	
 	let author = {
 		id: req.user._id,
@@ -53,7 +55,9 @@ router.post("/", middleware.isLoggedIn, function(req,res){
 			const dirToCreate = '/public/media/uploads/tracks/'+collName+'/'+songName+'/';
 			const destFolder = dirToCreate + fileName;
 		
-			newSong = {name: name, bpm: bpm, length: toMinutes(value), fileDir: dirToCreate, fileUrl: destFolder, description: desc,genre:genre,subgenre:subgenre, author:author};
+			//tags = tags.trim();
+		
+			newSong = {name: name, bpm: bpm, length: toMinutes(value), fileDir: dirToCreate, fileUrl: destFolder, description: desc,genre:genre,subgenre:subgenre, author:author, tags:tags};
 		
 			Song.create(newSong,function(err,newlyCreated){
 				if(err){
@@ -176,7 +180,7 @@ router.delete('/:id', middleware.checkAuthentication, async(req,res) => {
 	
 	try{
 		let foundSong = await Song.findById(req.params.id);	
-		await foundSong.remove();
+		await foundSong.deleteOne();
 		console.log('deleted');
 		res.redirect("/songs/1");
 	}catch(error){
