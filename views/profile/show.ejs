@@ -44,8 +44,8 @@
 						<td style = "vertical-align:middle"><a href = "/song/<%= song._id %>"><%= song.name%></a></td>
 						<td>
 							<div class = "mixbuttons" id = "<%= song.fileUrl%>">
-								<button class = "play sngBtns"  name = "<%= x %>"><span class = "glyphicon glyphicon-play"></span></button>								
-								<button class = "stop sngBtns"  name = "<%= x %>"><span class = "glyphicon glyphicon-stop"></span></button>	
+								<button class = "play sngBtns"  name = "<%= x %>"><span class = "glyphicon glyphicon-play sngBtns"></span></button>								
+								<button class = "stop sngBtns"  name = "<%= x %>"><span class = "glyphicon glyphicon-stop sngBtns"></span></button>	
 							</div>
 						</td>
 						<td style = "vertical-align:middle" class = "mixbuttons"><%= song.genre%></td>
@@ -75,9 +75,9 @@
 
 													</form>
 													<div class = "mixbuttons" id = "<%= mix.fileUrl%>">
-														<button class = "play"  name = "<%= x %>"><span class = "glyphicon glyphicon-play"></span></button>
-														<button class = "pause"  name = "<%= x %>"><span class = "glyphicon glyphicon-pause"></span></button>
-														<button class = "stop"  name = "<%= x %>"><span class = "glyphicon glyphicon-stop"></span></button>	
+														<button class = "play"  name = "<%= x %>"><span class = "glyphicon glyphicon-play sngBtns"></span></button>
+														
+														<button class = "stop"  name = "<%= x %>"><span class = "glyphicon glyphicon-stop sngBtns"></span></button>	
 													</div>
 
 													<!--<p><%= mix.description %></p>-->							
