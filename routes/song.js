@@ -4,16 +4,65 @@ const Song = require("../models/songs");
 const Collection = require("../models/collections");
 const Tags = require("../models/tags");
 const middleware = require("../middleware");
-const fileDownload = require("js-file-download");
-const formidable = require("formidable");
+//const fileDownload = require("js-file-download");
+//const formidable = require("formidable");
 const mp3Duration = require('mp3-duration')	
-const {Howl, Howler} = require('howler');
+//const {Howl, Howler} = require('howler');
+const multer = require('multer');
+const{storage} = require('../cloudinary');
+const upload = multer({storage});
 let isAdmin = '';
 
 
-router.post("/", middleware.isLoggedIn, function(req,res){	
+router.post("/", middleware.isLoggedIn,upload.single('filetoupload', {resource_type: "video"}), function(req,res){
+	//console.log(req.body);
+	//console.log(req.file);
+	//res.send(req.body.collectionName);
 	
-	//const fspromises = require("fs").promises;	
+	const name 			= req.body.name;	
+	const fileName 		= req.file.originalname;
+	const filePath 		= req.file.path;
+	const subgenre 		= req.body.subgenre;
+	const genre 		= req.body.genre;
+	const desc 			= req.body.description;	
+	const collection	= req.body.collection;	
+	const collName 		= req.body.collectionName;
+	const bpm 			= req.body.bpm;
+	const tags			= req.body.tags.split(" ");		
+	let newSong		= {};
+	
+	const author = {
+		id: req.user._id,
+		username : req.user.username		
+	}	
+	
+	newSong = {name: name, bpm: bpm, fileDir: fileName, fileUrl: filePath, description: desc,genre:genre,subgenre:subgenre, author:author, tags:tags};
+	
+	Song.create(newSong,function(err,newlyCreated){
+				if(err){
+						console.log(err);
+					}else{						
+						
+						Collection.findByIdAndUpdate(collection, {$set: {songs: newlyCreated._id}},{new:true}, function(err, updatedCollection){
+						
+						if(err){
+							res.redirect("/song/new");
+						}else{
+							
+							res.render('mixes/new', {song : newlyCreated});
+						 }
+
+	
+						});
+					}
+				}
+			)
+	})
+				
+					
+
+/*router.post("/", middleware.isLoggedIn,upload.single('filetoupload'), function(req,res){		
+	
 	const fs = require("fs");
 	const form = new formidable({keepExtensions:true, multiples: true});	
 	
@@ -70,7 +119,7 @@ router.post("/", middleware.isLoggedIn, function(req,res){
 							res.redirect("/song/new");
 						}else{
 							
-							fs.mkdir(
+							/*fs.mkdir(
 									  __basedir + dirToCreate,
 									  {
 										recursive: true,
@@ -87,24 +136,24 @@ router.post("/", middleware.isLoggedIn, function(req,res){
 											}   				
 										}); 
 									  }
-									); 
+									); */
 							
 							//const createDir = ()
-							res.render('mixes/new', {song : newlyCreated});
-						}		
-	})
+							//res.render('mixes/new', {song : newlyCreated});
+						//}		
+	//})
 						
 						
 					//res.redirect('/songs');
-					}
-			})
+					//}
+			//})
 	//res.send(newSong);
-		});		
-	})		
-});
+		//});		
+	//})		
+//});*/
 
 
-router.get("/new", async(req,res,next)=>{	
+router.get("/new", middleware.isLoggedIn, async(req,res,next)=>{	
 	
 	try{		
 		const allCollections = await Collection.find({}).sort( {name: 1});	

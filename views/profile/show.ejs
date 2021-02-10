@@ -30,8 +30,7 @@
 						<th>Song Name</th>
 						<th>&nbsp;</th>
 						<th>Genre</th>
-						<th>BPM</th>
-						<th>Duration</th>
+						<th>BPM</th>						
 						<th>&nbsp;</th>
 					</tr>
 				</thead>
@@ -48,9 +47,9 @@
 								<button class = "stop sngBtns"  name = "<%= x %>"><span class = "glyphicon glyphicon-stop sngBtns"></span></button>	
 							</div>
 						</td>
-						<td style = "vertical-align:middle; color:black" class = "mixbuttons"><%= song.genre%></td>
-						<td style = "vertical-align:middle ; color:black" class = "mixbuttons"><%= song.bpm%></td>
-						<td style = "vertical-align:middle ; color:black" class = "mixbuttons"><%= song.length%></td>	
+						<td style = "vertical-align:middle; color:black" class = "mixButtonsDesc"><%= song.genre%></td>
+						<td style = "vertical-align:middle ; color:black" class = "mixButtonsDesc"><%= song.bpm%></td>
+						<td style = "vertical-align:middle ; color:black" class = "mixButtonsDesc"><%= song.length%></td>	
 						<td><a class="btn btn-primary" role="button" data-toggle="collapse" href="#collapseMixes<%=x%>" aria-expanded="false" aria-controls="collapseExample">
   Mixes
 							</a></td>
@@ -68,21 +67,12 @@
 										<div class = "col-md-12">
 											<div class = "thumbnail">					
 												<div class = "mixButtonsDesc">
-
-														<%= mix.name%>
-
-													<form  class = "pull-right" id = "download-form" action = "/song/<%= song._id %>/mixes/<%=mix._id%>/downloads" method = "POST">							
-
-													</form>
+													<%= mix.name%>													
 													<div class = "mixbuttons" id = "<%= mix.fileUrl%>">
 														<button class = "play"  name = "<%= x %>"><span class = "glyphicon glyphicon-play sngBtns"></span></button>
 														
 														<button class = "stop"  name = "<%= x %>"><span class = "glyphicon glyphicon-stop sngBtns"></span></button>	
 													</div>
-
-													<!--<p><%= mix.description %></p>-->							
-
-
 												</div>
 											</div>
 										</div>		
@@ -94,7 +84,7 @@
 					</tr>
 					<%}else{%>
 					<tr>
-						<td colspan = "5" class = "text-center">No mixes downloaded..</td>
+						<td colspan = "5" class = "text-center mixButtonsDesc">No mixes downloaded..</td>
 					</tr>	
 					x++;	
 					<%}

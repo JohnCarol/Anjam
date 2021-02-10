@@ -4,8 +4,11 @@ const Song = require("../models/songs");
 const Tags = require("../models/tags");
 const Mix = require("../models/mixes");
 const middleware = require("../middleware");
-const formidable = require("formidable");
-const mp3Duration = require('mp3-duration')
+const multer = require('multer');
+const{storage} = require('../cloudinary');
+const upload = multer({storage});
+//const formidable = require("formidable");
+//const mp3Duration = require('mp3-duration')
 
 router.get('/new', middleware.checkAuthentication, (req,res)=>{
 	
@@ -21,7 +24,43 @@ router.get('/new', middleware.checkAuthentication, (req,res)=>{
 	
 });
 
-router.post('/', middleware.checkAuthentication, (req,res)=>{
+router.post("/", middleware.isLoggedIn,upload.single('filetoupload', {resource_type: "video"}), function(req,res){
+	//console.log(req.body);
+	//console.log(req.file);
+	//res.send(req.body.collectionName);
+	
+	const name 			= req.body.name;	
+	const fileName 		= req.file.originalname;
+	const filePath 		= req.file.path;	
+	const desc 			= req.body.description;		
+	const id = req.params.id;
+	let newSong		= {};
+	
+	Song.findById(id,function(err,foundSong){
+			if(err)
+				{
+					console.log(err);
+					res.redirect("/songs/1");
+				}else
+				{	
+					
+					newSong = {name: name, fileUrl: filePath, description: desc};
+					Mix.create(newSong, function(err,mix){
+									 if(err){
+										 console.log(err);
+									 }else{										 							 
+										 mix.save();
+										 foundSong.mixes.push(mix);
+										 foundSong.save();
+										 res.render('mixes/new', {song : foundSong, file: fileName});
+									 }	 
+								 })
+				}
+		})
+})
+	
+
+/*router.post('/', middleware.checkAuthentication, (req,res)=>{
 	
 	const fs =require("fs");	
 	const form = new formidable({keepExtensions:true, multiples: true});	
@@ -76,14 +115,14 @@ router.post('/', middleware.checkAuthentication, (req,res)=>{
 										 res.render('mixes/new', {song : foundSong, file: fileName});
 									 }	 
 								 })
-					//res.send(newSong);
+					
 			});
 
 
 				}
 		});	
 	});
-});
+});*/
 
 router.get('/:mix_id/', (req,res)=>{
 	let id = req.params.mix_id;

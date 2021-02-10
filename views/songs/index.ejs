@@ -17,8 +17,8 @@
 	</header>
 	
 	<section>
-		<span class = "pull-right"> - <span><%= numSongs %></span> results</span>
-		<span class = "pageno pull-right">Page<span><%= currPage %></span>of <span><%= pages %></span></span>
+		<span class = "pull-right">-<span><%= numSongs %></span> results</span>
+		<span class = "pageno pull-right">Page <span><%= currPage %></span> of <span><%= pages %></span></span>
 		<% 	
 			if(songs)
 			{	let x = 0;
@@ -34,10 +34,7 @@
 												<span class = "pull-right">
 													<%=song.genre%> | <%=song.subgenre%> | <%=song.bpm%> BPM
 												</span>
-												<div>
-											
-													
-												<!--a href = "/song/<%= song._id%>" class = "btn btn-primary">More Info</a>-->
+												<div><!--a href = "/song/<%= song._id%>" class = "btn btn-primary">More Info</a>-->
 												<% if(isAdmin || (currentUser && song.author.id.equals(currentUser._id))){%>
 													<a href = "/song/<%= song._id %>/edit" class = "btn btn-warning spacer">Edit</a>
 													<form id = "delete-form"  class = "pull-right spacer" action = "/song/<%= song._id %>?_method=DELETE" method = "POST">

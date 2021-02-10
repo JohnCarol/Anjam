@@ -16,8 +16,9 @@ $(function(){
 	$(".mixbuttons").each(function(){
 				
 				fileName = $(this).attr("id");
-				let file = fileName.replace("/public/media/uploads/tracks/", "");
-				file = file.replace(".mp3", "");
+				//let file = fileName.replace("/public/media/uploads/tracks/", "");
+				let file = fileName;
+				//file = file.replace(".mp3", "");
 		
 			    mixdata.push({
 				fileName: fileName,
@@ -28,7 +29,7 @@ $(function(){
 					
 			});		
 	})
-	//console.log(mixdata);
+	console.log(mixdata);
 	/*let ctx = Howler.ctx;
 	let analyser = Howler.ctx.createAnalyser();
 	

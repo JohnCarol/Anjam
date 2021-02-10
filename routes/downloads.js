@@ -1,9 +1,11 @@
-var express = require('express');
-var router  = express.Router({mergeParams: true});
-var Song = require("../models/songs");
-var Mix = require("../models/mixes");
-var middleware = require("../middleware");
-
+const express = require('express');
+const router  = express.Router({mergeParams: true});
+const Song = require("../models/songs");
+const Mix = require("../models/mixes");
+const middleware = require("../middleware");
+const https = require('https');
+const request = require('request');
+ 
 router.get('/', middleware.isLoggedIn, (req,res)=>{
 		   
 	let id = req.params.id;
@@ -34,7 +36,8 @@ router.post('/', middleware.isLoggedIn, (req,res)=>{
 				else
 				{
 					let link = foundMix.fileUrl;
-					const file = __basedir + link;
+					const file = link;
+					let name = foundMix.name;
 					let downloads = foundMix.downloads;
 					//console.log(file);
 					//Check to see if user has already downloaded this
@@ -58,7 +61,8 @@ router.post('/', middleware.isLoggedIn, (req,res)=>{
 							foundSong.save();
 						});
 					} 
-				res.download(file); 	
+				res.setHeader("content-disposition", "attachment; filename=" +name+".mp3");         
+				request(link).pipe(res); 	
 				}
 
 			})
@@ -75,7 +79,8 @@ router.post('/', middleware.isLoggedIn, (req,res)=>{
 			else
 			{
 				let link = foundSong.fileUrl;
-				const file = __basedir + link;
+				let name = foundSong.name; 
+				const file = link;
 				let downloads = foundSong.downloads;
 				//Check to see if user has already downloaded this
 				//Serch downloads to see if this particualr song has this users id in the downloads
@@ -96,23 +101,12 @@ router.post('/', middleware.isLoggedIn, (req,res)=>{
 					foundSong.save();	
 					
 					
-				}
-				//Song.find({"downloads.userid" : user_id}, function (err, allDownloads){ 
-				//if(allDownloads){
-					
-									
-					
-					
-					//}
-				//else
-					//{
-						//console.log("user_id - >" + user_id);
-						
-						
-						
-					//}
-				//}); 
-				res.download(file); 	
+				}				
+				console.log(link);
+				res.setHeader("content-disposition", "attachment; filename=" +name+".mp3");         
+				request(link).pipe(res);
+				
+				
 			}
 		})
 		

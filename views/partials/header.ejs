@@ -13,29 +13,45 @@
 	<body>
 	<header>
 		<nav class = "navbar navbar-inverse navbar-fixed-top container-fluid navbar-header">
-			<section>
+			<section class = "container-fluid">
 					<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#anj-nav" aria-expanded="false">
 						<span class="sr-only">Toggle navigation</span>
 						<span class="icon-bar"></span>
 						<span class="icon-bar"></span>
 						<span class="icon-bar"></span>
 					</button>
-					<a href ="/songs/1" class = "navbar-brand" >
-						<img alr = "Brand" src = "/media/uploads/logo.png">
-					</a>				
-				
+					<div class="navbar-header">
+						<a href ="/songs/1" class = "navbar-brand" >
+							<img alr = "Brand" src = "/media/uploads/logo.png">
+						</a>
+					</div>
+									
+					
 					<nav class = "collapse navbar-collapse" id = "anj-nav">
 						<ul class = "nav navbar-nav navbar-right">
+							<li>
+								<form class="navbar-form navbar-right" method="GET" style = "padding-top:10px"action="/songs/1">
+      								<div class="input-group">
+        								<input type="text" class="form-control" placeholder="Search" name="search">
+        								<div class="input-group-btn">
+          									<button class="btn btn-default" type="submit">
+            								<i class="glyphicon glyphicon-search"></i>
+          									</button>
+        								</div>
+      								</div>
+    							</form>
+							</li>
 							<% if(!currentUser){ %>
 								<li><a href = "/login">Login</a></li>
 								<li><a href = "/register">Sign Up</a></li>						
 							<% }else{ %>
 								<li><a href = "#">Signed in as: <%=currentUser.username%></a></li>
 								<li><a href = "/profile">Profile</a></li>
-								<li><a href = "/logout">Logout</a></li>					
+								<li><a href = "/logout">Logout</a></li>	
+								
 							<% } %>
 
-						</ul>
+						</ul>						
 					</nav>
 			</section>
 		</nav>

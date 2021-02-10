@@ -1,3 +1,8 @@
+if(process.env.NODE_ENV !== "production")
+	{
+		require("dotenv").config();
+	}
+
 const mongoose = require("mongoose");
 const express = require("express");
 const app = express();
@@ -18,16 +23,6 @@ const 	collectionRoutes = require('./routes/collections'),
 		mixesRoutes = require('./routes/mixes'),
 		downloadsRoutes = require('./routes/downloads'),
 		profileRoutes = require('./routes/profile');
-
-
-/*mongoose.connect("mongodb://localhost/yelp_camp", {
-	useNewUrlParser: true,
-	useUnifiedTopology: true	
-})
-.then(()=> console.log('Connected to DB'))
-.catch(error => console.log(error.message));*/
-
-//console.log(process.env.DATABASEURL);
 
 const url = process.env.DATABASEURL || "mongodb://localhost/anjam";
 
