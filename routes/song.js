@@ -28,7 +28,7 @@ router.post("/", middleware.isLoggedIn,upload.single('filetoupload', {resource_t
 	const collection	= req.body.collection;	
 	const collName 		= req.body.collectionName;
 	const bpm 			= req.body.bpm;
-	const tags			= req.body.tags.split(" ");		
+	const tags			= req.body.tags.split(", ");		
 	let newSong		= {};
 	
 	const author = {
@@ -207,7 +207,7 @@ router.get("/:id", function(req,res){
 	})
 });
 
-//EDIT & UPDATE CAMPGROUND ROUTE
+//EDIT & UPDATE SONG ROUTE
 router.get('/:id/edit', middleware.checkAuthentication, function(req,res){
 	
 		res.render("songs/edit", {song: req.song});	
@@ -224,12 +224,13 @@ router.put("/:id", middleware.checkAuthentication, function(req,res){
 	})
 });
 
-//DELETE/DESTROY CAMPGROUND ROUTE
+//DELETE/DESTROY SONG ROUTE
 router.delete('/:id', middleware.checkAuthentication, async(req,res) => {
 	
 	try{
 		let foundSong = await Song.findById(req.params.id);	
 		await foundSong.deleteOne();
+		
 		console.log('deleted');
 		res.redirect("/songs/1");
 	}catch(error){
