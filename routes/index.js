@@ -7,7 +7,8 @@ sgMail.setApiKey(process.env.SENDGRIDAPI);
 
 router.get("/", function(req,res){
 	
-	res.render("landing");
+	//res.render("landing");
+	res.redirect("/songs/1")
 	
 });
 
