@@ -209,11 +209,19 @@ router.get("/:id", function(req,res){
 
 //EDIT & UPDATE SONG ROUTE
 router.get('/:id/edit', middleware.checkAuthentication, function(req,res){
+		
+	
+	    let tagsString = req.song.tags.toString();
+		
+		req.song.tags = tagsString.replace(/,/gi,', ');
 	
 		res.render("songs/edit", {song: req.song});	
 });
 
-router.put("/:id", middleware.checkAuthentication, function(req,res){
+router.put("/:id", middleware.checkAuthentication, function(req,res){	
+	
+	let tagsArray = req.body.song.tags.split(", ");
+	req.body.song.tags =  tagsArray;		
 	
 	Song.findByIdAndUpdate(req.params.id, req.body.song, function(err, updatedSong){
 		if(err){

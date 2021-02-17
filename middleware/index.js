@@ -17,6 +17,7 @@ middlewareObj.checkAuthentication = function(req,res,next)
 				
 				if(req.user.isAdmin || foundSong.author.id.equals(req.user._id))
 					{
+						//console.log(foundSong.tags);
 						req.song = foundSong;
 						next();			
 					}
