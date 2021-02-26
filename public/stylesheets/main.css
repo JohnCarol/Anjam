@@ -137,6 +137,13 @@ color:black;
 	padding: 9px;
 }
 
+.table-hover tbody tr:hover td, .table-hover tbody tr:hover th {
+  background-color: #cecccc;
+  color: red;
+}
+
+
+
 .modal.loading .modal-content:before {
   content: 'Loading...';
   text-align: center;
