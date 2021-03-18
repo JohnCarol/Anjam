@@ -1,7 +1,7 @@
-var express = require('express');
-var router  = express.Router();
-var passport = require("passport");
-var User = require("../models/user");
+const express = require('express');
+const router  = express.Router();
+const passport = require("passport");
+const User = require("../models/user");
 const sgMail = require('@sendgrid/mail');
 sgMail.setApiKey(process.env.SENDGRIDAPI);
 
@@ -21,9 +21,9 @@ router.get('/register', function(req,res){
 router.post('/register', function(req,res){
 	
 	//var newUser = new User({username: req.body.username});
-	var username = req.body.username;
-	var password = req.body.password;
-	var email = req.body.email;	
+	let username = req.body.username;
+	let password = req.body.password;
+	let email = req.body.email;	
 	
 	User.register(new User({ email : email, username : username, isAdmin : false}), password, function(err, user) {
       if (err) {
@@ -34,26 +34,14 @@ router.post('/register', function(req,res){
 	var authenticationURL = 'https://infinite-atoll-58349.herokuapp.com/verify?authToken=' + user.authToken;
     sgMail.send({
         to:       user.email,
-        from:     'jcbukenya@gmail.com',
+        from:     'info@anjam.net',
         subject:  'Please confirm your ANJAM account',
         html:     '<a target=_blank href=\"' + authenticationURL + '\">Confirm your email</a>'
     }, function(err, json) {
         if (err) { return console.error(err.body); }
 		
 		req.flash("success", "Thank you for registering. Please check your email for a verification link");
-		res.redirect("/login");
-	
-	/*User.register(newUser, password, function(err,user){
-		if(err){
-  				req.flash("error", err.message);
-  				return res.redirect("/register");
-				}else{
-				passport.authenticate("local")(req,res, function(){
-				req.flash("success", "Welcome to Anjam "+ user.username);	
-				res.redirect('/songs');				
-			});
-		}
-	})*/	
+		res.redirect("/login");	
 		});
 	});
 });
@@ -62,7 +50,7 @@ router.post('/register', function(req,res){
       User.verifyEmail(req.query.authToken, function(err, existingAuthToken) {
         if(err) console.log('err:', err);
 
-        req.flash("success", "Thank you for verifying your email address. You may now log in.");
+        req.flash("success", "Thank you for verifying your email address. You will receive and email once your account is activated.");
 		res.redirect("/login");
       });
   });
@@ -94,7 +82,7 @@ router.post('/forgot_password', function(req,res){
 				
 			sgMail.send({
         	to:       foundUser.email,
-        	from:     'jcbukenya@gmail.com',
+        	from:     'info@anjam.net',
         	subject:  'ANJAM Password Reset',
         	html:     'We received a request to reset the password for your ANJAM account. To reset your password, simply click on the link below.<br><br><a target=_blank href=\"' + authenticationURL + '\">Confirm Password Reset</a>'
     		}, function(err, json) {

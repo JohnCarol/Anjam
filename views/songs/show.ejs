@@ -2,9 +2,10 @@
 <main class = "container">
 		<section class = "col-md-12 thumbnail caption-full">
 			<header class = "jumbotron">
+				<% if (currentUser.isActivated === true){%>
 					<form  class = "pull-right" id = "download-form" action = "/song/<%= song._id %>/downloads" method = "POST">								
 								<%let sdl = "Download";										
-						 			if(currentUser)
+									if(currentUser)
 									{
 										let found = song.downloads.indexOf(currentUser._id);
 										if(found !== -1)
@@ -17,6 +18,7 @@
 									<%=sdl%>
 								</button>
 					</form>
+				<%}%>
 					<div class = "mixbuttons" id = "<%= song.fileUrl%>">
 						<h3><%=song.name %></h3>						
 						<button class = "play"  name = "0"><span class = "glyphicon glyphicon-play sngBtns"></span></button>	
@@ -60,23 +62,24 @@
 								<span class = "mixbuttons mixbuttonsShow" id = "<%= mix.fileUrl%>">
 									<button class = "play"  name = "<%= x %>"><span class = "glyphicon glyphicon-play sngBtns"></span></button>								
 									<button class = "stop"  name = "<%= x %>"><span class = "glyphicon glyphicon-stop sngBtns"></span></button>	
-								
-								<form  class = "pull-right" id = "download-form" action = "/song/<%= song._id %>/mixes/<%=mix._id%>/downloads" method = "POST">							
-									<%
-									if(currentUser)
-										{
-
-											let found = mix.downloads.indexOf(currentUser._id);
-											if(found !== -1)
+								<% if (currentUser.isActivated === true){%>
+									<form  class = "pull-right" id = "download-form" action = "/song/<%= song._id %>/mixes/<%=mix._id%>/downloads" method = "POST">							
+										<%
+										if(currentUser)
 											{
-												dl = "Mix Downloaded";
-											}
-										}	
-									%>
-									<button class = "btn btn-sm btn-normal downloadBtn">
-										<%=dl%>
-								</button>
-								</form>
+
+												let found = mix.downloads.indexOf(currentUser._id);
+												if(found !== -1)
+												{
+													dl = "Mix Downloaded";
+												}
+											}	
+										%>
+										<button class = "btn btn-sm btn-normal downloadBtn">
+											<%=dl%>
+										</button>
+									</form>
+								<%}%>
 							</span>
 								<% if(isAdmin || (currentUser && song.author.id.equals(currentUser._id))){%>
 							<a class = "btn btn-xs btn-warning" 

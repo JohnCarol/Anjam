@@ -1,6 +1,7 @@
 const Song = require("../models/songs");
 const Tag = require("../models/tags");
 const Mix = require("../models/mixes");
+const User = require("../models/user");
 
 let middlewareObj = {};
 
@@ -55,6 +56,19 @@ middlewareObj.checkMixDetails = function(req,res,next)
 			res.redirect("back");
 		}	
 }
+
+middlewareObj.isActivated = function(req,res,next){
+	if(req.userId)
+	{
+		let userId = req.user._id;
+		User.findById(userId, function(err, foundUser){
+			console.log(foundUser.isActivated);
+			return next();
+		})
+	}else{
+		return next();
+	}
+	}
 
 middlewareObj.isLoggedIn = function(req, res, next){
 	

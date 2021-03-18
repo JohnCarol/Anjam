@@ -4,7 +4,8 @@ var passportLocalMongooseEmail = require("passport-local-mongoose-email");
 
 
 var UserSchema = new mongoose.Schema({	
-	username: String,	
+	username: String,
+	isActivated: Boolean,
 	isAdmin: Boolean					
 });
 

@@ -3,7 +3,7 @@ const router  = express.Router({mergeParams: true});
 const Song = require("../models/songs");
 const middleware = require("../middleware");
 
-router.get("/:page", async(req,res,next)=>{
+router.get("/:page", middleware.isActivated, async(req,res,next)=>{
 
 	const resPerPage = 9;
 	const page = req.params.page;

@@ -22,6 +22,7 @@ const 	collectionRoutes = require('./routes/collections'),
 		indexRoutes = require('./routes/index'),
 		mixesRoutes = require('./routes/mixes'),
 		downloadsRoutes = require('./routes/downloads'),
+	  	usersRoutes = require('./routes/users'),
 		profileRoutes = require('./routes/profile');
 
 const url = process.env.DATABASEURL || "mongodb://localhost/anjam";
@@ -78,6 +79,7 @@ app.use("/songs", songsRoutes);
 app.use("/song/:id/mixes", mixesRoutes);
 app.use("/song/:id/downloads", downloadsRoutes);
 app.use("/song/:id/mixes/:mix_id/downloads", downloadsRoutes);
+app.use("/users", usersRoutes);
 app.use("/profile", profileRoutes);
 
 var port = process.env.PORT || 3000;
