@@ -62,18 +62,18 @@
 			</span>
 		</a>
 		<% } else if (currPage < pages) { %>
-		<a href="/songs/<%= parseInt(currPage) - 1 %>/?search<%=searchVal%>">
+		<a href="/songs/<%= parseInt(currPage) - 1 %>/?search=<%=searchVal%>">
 			<span class = "glyphicon glyphicon-arrow-left">				
 			</span>
 			Page <%= parseInt(currPage) - 1 %>
 		</a>
-		<a href="/songs/<%= parseInt(currPage) + 1 %>/?search<%=searchVal%>">
+		<a href="/songs/<%= parseInt(currPage) + 1 %>/?search=<%=searchVal%>">
 			Page <%= parseInt(currPage) + 1 %>
 			<span class = "glyphicon glyphicon-arrow-right">
 			</span>
 		</a>
 		<% } else if (currPage == pages && pages > 1) { %>
-		<a href="/songs/<%= parseInt(currPage) - 1 %>/?search<%=searchVal%>">
+		<a href="/songs/<%= parseInt(currPage) - 1 %>/?search=<%=searchVal%>">
 			<span class = "glyphicon glyphicon-arrow-left">				
 			</span>
 			Page <%=parseInt(currPage) - 1 %>
