@@ -46,14 +46,24 @@ router.post('/activate/:id', function(req,res){
 			console.log(err);
 		}else{
 			
-			
+					
 			if(activate === 1){
-			let mailOptions = {
-			from: 'noreply@anjam.net',
-			to: email,
-			subject: 'Your ANJAM account has been activated',
-			html:     'Hi there<br><br>Your account has been activated. Log In <a traget = "_blank" href = "http://www.anjam.net/login">here</a><br><br>Kind regards'		
-	}
+				req.flash("success", "User successfully activated.");	
+				let mailOptions = {
+				from: 'noreply@anjam.net',
+				to: email,
+				subject: 'Your ANJAM account has been activated',
+				html:     'Hi there<br><br>Your account has been activated. Log In <a traget = "_blank" href = "http://www.anjam.net/login">here</a><br><br>Kind regards'		
+		}
+			transporter.sendMail(mailOptions, function(error, info){
+				if(error){
+					console.log(error);
+				}else{
+					console.log('Email sent: ' + info.response)
+					
+				
+				}		
+	});
 				
 				
 				/**sgMail.send({
@@ -65,6 +75,8 @@ router.post('/activate/:id', function(req,res){
 					//console.log('error');
         		if (err) { return console.error(err); }
 				});**/
+			}else{
+				req.flash("success", "User successfully deactivated.");
 			}
 			
 			res.redirect('/users');
