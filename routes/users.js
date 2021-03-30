@@ -48,7 +48,8 @@ router.post('/activate/:id', function(req,res){
 			
 					
 			if(activate === 1){
-				req.flash("success", "User successfully activated.");	
+				req.flash("success", "User successfully activated.");
+				
 				let mailOptions = {
 				from: 'noreply@anjam.net',
 				to: email,

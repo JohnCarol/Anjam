@@ -87,7 +87,7 @@ router.post('/register', function(req,res){
 		  
 		let mailOptions = {
 		from: 'noreply@anjam.net',
-		to: 'jcbukenya@gmail.com',
+		to: 'info@anjam.net',
 		subject: 'New User Registration on ANJAM',
 		html: 'Hi there<br><br>A user has just registered on the ANJAM Music Library website.<br><br>Please login to review/activate the new account.<br><br>Kind Regards'		
 	}  
