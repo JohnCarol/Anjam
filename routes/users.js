@@ -2,9 +2,24 @@ const express = require('express');
 const router  = express.Router();
 const passport = require("passport");
 const User = require("../models/user");
-const sgMail = require('@sendgrid/mail');
+//const sgMail = require('@sendgrid/mail');
 const middleware = require("../middleware");
-sgMail.setApiKey(process.env.SENDGRIDAPI);
+//sgMail.setApiKey(process.env.SENDGRIDAPI);
+const nodemailer = require('nodemailer');
+
+const transporter = nodemailer.createTransport({
+	host: "smtp.anjam.net",
+	port: "587",
+	secure: false,	
+	auth:{
+		user: process.env.EMAIL_ADDRESS,
+		pass: process.env.EMAIL_PASWD
+	},
+	tls: {
+    // do not fail on invalid certs
+    rejectUnauthorized: false
+  }
+});
 
 router.get('/', middleware.isLoggedIn, async(req,res,next)=>{
 	
@@ -33,7 +48,15 @@ router.post('/activate/:id', function(req,res){
 			
 			
 			if(activate === 1){
-				sgMail.send({
+			let mailOptions = {
+			from: 'noreply@anjam.net',
+			to: foundUser.email,
+			subject: 'Your ANJAM account has been activated',
+			html:     'Hi there<br><br>Your account has been activated. Log In <a traget = "_blank" href = "http://www.anjam.net/login"><br><br>Kind regards'		
+	}
+				
+				
+				/**sgMail.send({
         			to:       email,
 					from:     'info@anjam.net',
 					subject:  'Your Anjam.net account has been activated',
@@ -41,7 +64,7 @@ router.post('/activate/:id', function(req,res){
     			}, function(err, json) {
 					//console.log('error');
         		if (err) { return console.error(err); }
-				});
+				});**/
 			}
 			
 			res.redirect('/users');

@@ -53,8 +53,7 @@ router.post('/register', function(req,res){
 		from: 'noreply@anjam.net',
 		to: email,
 		subject: 'Please confirm your ANJAM account',
-		html: '<a target=_blank href=\"' + authenticationURL + '\">Confirm your email</a>'
-		
+		html: 'Hi there<br><br>You are recieving this email because you have successfully registered on the ANJAM Music Library website. If you did not register, please igonre this email. If you would like to confirm registration please click the link below.<br><br><a target=_blank href=\"' + authenticationURL + '\">Confirm your email</a><br><br>Kind regards'		
 	}
 	
 	transporter.sendMail(mailOptions, function(error, info){
@@ -85,9 +84,22 @@ router.post('/register', function(req,res){
  router.get('/verify', function(req, res) {
       User.verifyEmail(req.query.authToken, function(err, existingAuthToken) {
         if(err) console.log('err:', err);
-
-        req.flash("success", "Thank you for verifying your email address. You will receive an email once your account is activated.");
-		res.redirect("/login");
+		  
+		let mailOptions = {
+		from: 'noreply@anjam.net',
+		to: 'jcbukenya@gmail.com',
+		subject: 'New User Registration on ANJAM',
+		html: 'Hi there<br><br>A user has just registered on the ANJAM Music Library website.<br><br>Please login to review/activate the new account.<br><br>Kind Regards'		
+	}  
+		transporter.sendMail(mailOptions, function(error, info){
+		if(error){
+			console.log(error);
+		}else{
+			console.log('Email sent: ' + info.response);
+			
+			req.flash("success", "Thank you for verifying your email address. You will receive an email once your account is activated.");
+		res.redirect("/login");			
+		}})
       });
   });
 
@@ -121,7 +133,7 @@ router.post('/forgot_password', function(req,res){
 			from: 'noreply@anjam.net',
 			to: foundUser.email,
 			subject: 'Please confirm your ANJAM account password reset',
-			html:     'We received a request to reset the password for your ANJAM account. To reset your password, simply click on the link below.<br><br><a target=_blank href=\"' + authenticationURL + '\">Confirm Password Reset</a>'		
+			html:     'Hi there<br><br>We have received a request to reset the password for your ANJAM Music Library account. To reset your password, simply click on the link below.<br><br><a target=_blank href=\"' + authenticationURL + '\">Confirm Password Reset</a><br><br>Kind regards'		
 	}
 			transporter.sendMail(mailOptions, function(error, info){
 		if(error){
