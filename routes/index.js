@@ -2,8 +2,24 @@ const express = require('express');
 const router  = express.Router();
 const passport = require("passport");
 const User = require("../models/user");
-const sgMail = require('@sendgrid/mail');
-sgMail.setApiKey(process.env.SENDGRIDAPI);
+//const sgMail = require('@sendgrid/mail');
+//sgMail.setApiKey(process.env.SENDGRIDAPI);
+const nodemailer = require('nodemailer');
+
+const transporter = nodemailer.createTransport({
+	host: "smtp.anjam.net",
+	port: "587",
+	secure: false,	
+	auth:{
+		user: process.env.EMAIL_ADDRESS,
+		pass: process.env.EMAIL_PASWD
+	},
+	tls: {
+    // do not fail on invalid certs
+    rejectUnauthorized: false
+  }
+});
+
 
 router.get("/", function(req,res){
 	
@@ -31,8 +47,26 @@ router.post('/register', function(req,res){
         return res.redirect("back");
       }
 		
-	var authenticationURL = 'https://infinite-atoll-58349.herokuapp.com/verify?authToken=' + user.authToken;
-    sgMail.send({
+	//var authenticationURL = 'https://infinite-atoll-58349.herokuapp.com/verify?authToken=' + user.authToken;
+	let authenticationURL = 'http://www.anjam.net/verify?authToken=' + user.authToken;
+	let mailOptions = {
+		from: 'noreply@anjam.net',
+		to: email,
+		subject: 'Please confirm your ANJAM account',
+		html: '<a target=_blank href=\"' + authenticationURL + '\">Confirm your email</a>'
+		
+	}
+	
+	transporter.sendMail(mailOptions, function(error, info){
+		if(error){
+			console.log(error);
+		}else{
+			console.log('Email sent: ' + info.response)
+			req.flash("success", "Thank you for registering. Please check your email for a verification link");
+			res.redirect("/login");
+		}		
+	});
+    /*sgMail.send({
         to:       user.email,
         from:     'info@anjam.net',
         subject:  'Please confirm your ANJAM account',
@@ -42,7 +76,9 @@ router.post('/register', function(req,res){
 		
 		req.flash("success", "Thank you for registering. Please check your email for a verification link");
 		res.redirect("/login");	
-		});
+		});*/
+		
+		
 	});
 });
 
@@ -50,7 +86,7 @@ router.post('/register', function(req,res){
       User.verifyEmail(req.query.authToken, function(err, existingAuthToken) {
         if(err) console.log('err:', err);
 
-        req.flash("success", "Thank you for verifying your email address. You will receive and email once your account is activated.");
+        req.flash("success", "Thank you for verifying your email address. You will receive an email once your account is activated.");
 		res.redirect("/login");
       });
   });
@@ -78,9 +114,26 @@ router.post('/forgot_password', function(req,res){
 			}
 		
 			foundUser = foundUser[0];
-			var authenticationURL = 'https://infinite-atoll-58349.herokuapp.com/reset_password?email=' + foundUser.email + '&authToken=' + foundUser.authToken;
-				
-			sgMail.send({
+			//var authenticationURL = 'https://infinite-atoll-58349.herokuapp.com/reset_password?email=' + foundUser.email + '&authToken=' + foundUser.authToken;
+			var authenticationURL = encodeURIComponent('http://www.anjam.net/reset_password?email=' + foundUser.email + '&authToken=' + foundUser.authToken);	
+			authenticationURL = decodeURIComponent(authenticationURL);
+			let mailOptions = {
+			from: 'noreply@anjam.net',
+			to: foundUser.email,
+			subject: 'Please confirm your ANJAM account password reset',
+			html:     'We received a request to reset the password for your ANJAM account. To reset your password, simply click on the link below.<br><br><a target=_blank href=\"' + authenticationURL + '\">Confirm Password Reset</a>'		
+	}
+			transporter.sendMail(mailOptions, function(error, info){
+		if(error){
+			console.log(error);
+		}else{
+			console.log('Email sent: ' + info.response)
+			req.flash("success", "A password reset confirmation link has been sent to '"+ foundUser.email + "'.");
+			res.redirect("/login");
+		}		
+	});
+			
+			/**sgMail.send({
         	to:       foundUser.email,
         	from:     'info@anjam.net',
         	subject:  'ANJAM Password Reset',
@@ -90,7 +143,9 @@ router.post('/forgot_password', function(req,res){
 		
 			req.flash("success", "A password reset confirmation link has been sent to '"+ foundUser.email + "'.");
 			res.redirect("/login");
-	 	});	
+	 	});	**/
+		
+		
 	});
 	
 	 //User.find({email: username},null,limit function(err, foundUser){
