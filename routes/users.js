@@ -50,9 +50,9 @@ router.post('/activate/:id', function(req,res){
 			if(activate === 1){
 			let mailOptions = {
 			from: 'noreply@anjam.net',
-			to: foundUser.email,
+			to: email,
 			subject: 'Your ANJAM account has been activated',
-			html:     'Hi there<br><br>Your account has been activated. Log In <a traget = "_blank" href = "http://www.anjam.net/login"><br><br>Kind regards'		
+			html:     'Hi there<br><br>Your account has been activated. Log In <a traget = "_blank" href = "http://www.anjam.net/login">here</a><br><br>Kind regards'		
 	}
 				
 				
