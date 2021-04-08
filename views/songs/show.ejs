@@ -2,7 +2,7 @@
 <main class = "container">
 		<section class = "col-md-12 thumbnail caption-full">
 			<header class = "jumbotron">
-				<% if (currentUser.isActivated === true){%>
+				<% if (currentUser && currentUser.isActivated === true){%>
 					<form  class = "pull-right" id = "download-form" action = "/song/<%= song._id %>/downloads" method = "POST">								
 								<%let sdl = "Download";										
 									if(currentUser)
@@ -62,7 +62,7 @@
 								<span class = "mixbuttons mixbuttonsShow" id = "<%= mix.fileUrl%>">
 									<button class = "play"  name = "<%= x %>"><span class = "glyphicon glyphicon-play sngBtns"></span></button>								
 									<button class = "stop"  name = "<%= x %>"><span class = "glyphicon glyphicon-stop sngBtns"></span></button>	
-								<% if (currentUser.isActivated === true){%>
+								<% if (currentUser && currentUser.isActivated === true){%>
 									<form  class = "pull-right" id = "download-form" action = "/song/<%= song._id %>/mixes/<%=mix._id%>/downloads" method = "POST">							
 										<%
 										if(currentUser)
