@@ -73,7 +73,7 @@
 									<button class = "pause"  name = "<%=x%>"><span class = "glyphicon glyphicon-pause sngBtns"></span></button>	
 									<button class = "stop"  name = "<%=x%>"><span class = "glyphicon glyphicon-stop sngBtns"></span></button>
 									
-									<progress class = "progressbar" id ="seekbar_0" name ="<%=x%>" value="0" max="1" style="width:99%;"></progress>
+									<progress class = "progressbar" id ="seekbar_<%=x%>" name ="<%=x%>" value="0" max="1" style="width:99%;"></progress>
 								<% if (currentUser && currentUser.isActivated === true){%>
 									<form  class = "pull-right" id = "download-form" action = "/song/<%= song._id %>/mixes/<%=mix._id%>/downloads" method = "POST">							
 										<%
