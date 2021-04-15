@@ -11,6 +11,8 @@ body {
 
 .progressbar{
 	
+	cursor: pointer;
+	
 	
 }
 .jumbotron{
