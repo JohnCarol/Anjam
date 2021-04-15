@@ -29,7 +29,7 @@ $(function(){
 					
 			});		
 	})
-	console.log(mixdata);
+	//console.log(mixdata);
 	/*let ctx = Howler.ctx;
 	let analyser = Howler.ctx.createAnalyser();
 	
@@ -90,7 +90,7 @@ $(function(){
 		})
 		
 		let id = $(this).attr("name");
-		console.log(id);
+		//console.log(id);
 		
 		
 		$(this).removeClass('play');
@@ -127,6 +127,19 @@ $(function(){
 			mixdata[id].sound.stop();
 		}
 	});
+	
+	$('#player').on('timeupdate', function() {
+   	 	$('#seekbar').attr("value", this.currentTime / this.duration);
+	});
+	
+	let progressBar = document.querySelector("progress");
+	progressBar.addEventListener("click", seek);
+
+	function seek(e) {
+   	 let percent = e.offsetX / this.offsetWidth;
+    	player.currentTime = percent * player.duration;
+    	progressBar.value = percent / 100;
+	}
 
 	$(".volup").on("click", function(){
 		

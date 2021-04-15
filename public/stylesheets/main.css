@@ -9,7 +9,10 @@ body {
 	color: white;
 }
 
-
+.progressbar{
+	
+	
+}
 .jumbotron{
 	
 	background-image: linear-gradient(#9c0f00, white);
@@ -31,9 +34,18 @@ color:black;
 
 .sngTitle{
 	
-	padding-left: 10px;
+	padding-left: 20px;
 	color: black;
+	padding-bottom: -15px;
 }
+
+.sngTitleMain{
+	
+	
+	color: black;
+	padding-bottom: -15px;
+}
+
 .pageno{
 	
 	display: inline;
@@ -81,8 +93,8 @@ color:black;
 }
 
 .mixbuttonsShow{
-	 padding: 9px;
-	 margin: 9px;
+	 padding: 5px;
+	 margin: 5px;
 }
 
 .mixbuttons{
