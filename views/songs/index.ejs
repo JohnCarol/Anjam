@@ -25,12 +25,12 @@
 				songs.forEach(function(song){ %>
 				<article class="col-md-12 thumbnail caption-full">
 									<section class="row container-fluid sngRow">									
-											<article class = "mixbuttons" id = "<%= song.fileUrl%>">											
+											<article class = "mixbuttons">											
 												<div><a class = "sngTitleMain" href = "/song/<%= song._id%>"><%= song.name %></a></div>
 												<span class = "pull-right">
 													<%=song.genre%> | <%=song.subgenre%> | <%=song.bpm%> BPM
 												</span>
-												<audio id="player_<%=x%>" src="<%= song.fileUrl%>"></audio>
+												<audio id="player_<%=x%>" class = "player" src="<%= song.fileUrl%>"></audio>
 							
 												<button class = "play"  name = "<%=x%>"><span class = "glyphicon glyphicon-play sngBtns"></span></button>
 												<button class = "pause"  name = "<%=x%>"><span class = "glyphicon glyphicon-pause sngBtns"></span></button>	

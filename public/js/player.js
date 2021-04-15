@@ -4,13 +4,18 @@ $(function(){
 	let playerName = "player_" + $(this).attr('name');   
     let seekBar = "seekbar_" + $(this).attr('name');
 		
-	$(".mixbuttons").each(function(){
-			
+	$(".mixbuttons").each(function(){			
 			
 		$(this).closest('.thumbnail').removeClass("playing");
 			
-	})	
+	})
+	let i = 0;
+	$(".player").each(function(){
 		
+		$(".player")[i].pause();
+		i++;
+		
+	})	
 		
     document.getElementById(playerName).play();
 		

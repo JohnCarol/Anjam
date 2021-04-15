@@ -20,9 +20,9 @@
 					</form>
 				<%}%>
 					<div class = "audio-player">				
-						<div class = "mixbuttons" id = "https://res.cloudinary.com/dxomkhcaw/video/upload/v1612948601/Anjam/qjamsls1v4foezv4v8pk.mp3">
+						<div class = "mixbuttons">
 							<h3><%=song.name %></h3>
-							<audio id="player_0" src="<%= song.fileUrl%>"></audio>
+							<audio class = "player" id="player_<%=x%>" src="<%= song.fileUrl%>"></audio>
 							
 								<button class = "play"  name = "0"><span class = "glyphicon glyphicon-play sngBtns"></span></button>
 								<button class = "pause"  name = "0"><span class = "glyphicon glyphicon-pause sngBtns"></span></button>	
@@ -66,8 +66,9 @@
 							<div class = "thumbnail">					
 								<div class = "caption-full">
 								<div class = "sngTitle"><%= mix.name%></div>
-								<div class = "mixbuttons mixbuttonsShow" id = "<%= mix.fileUrl%>">
-									<audio id="player_<%=x%>" src="<%= song.fileUrl%>"></audio>
+								<div class = "mixbuttons mixbuttonsShow">
+									<audio class = "player" id="player_<%=x%>" src="<%= song.fileUrl%>"></audio>
+									
 							
 									<button class = "play"  name = "<%=x%>"><span class = "glyphicon glyphicon-play sngBtns"></span></button>
 									<button class = "pause"  name = "<%=x%>"><span class = "glyphicon glyphicon-pause sngBtns"></span></button>	
