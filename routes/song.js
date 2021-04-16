@@ -43,7 +43,7 @@ router.post("/", middleware.isLoggedIn,upload.single('filetoupload', {resource_t
 						console.log(err);
 					}else{						
 						
-						Collection.findByIdAndUpdate(collection, {$set: {songs: newlyCreated._id}},{new:true}, function(err, updatedCollection){
+						Collection.findByIdAndUpdate(collection, {$push: {songs: newlyCreated._id}},{new:true}, function(err, updatedCollection){
 						
 						if(err){
 							res.redirect("/song/new");
