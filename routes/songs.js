@@ -27,7 +27,7 @@ router.get("/:page", middleware.isActivated, async(req,res,next)=>{
 					
 					//{ $or: [{ name: "Rambo" }, { breed: "Pugg" }, { age: 2 }] },
 					//{ tags: { $in: ["appliances", "school"] } },
-					const allSongs = await Song.find({$or : [{tags:{$in:[regex]}}, {genre: regex}, {subgenre:regex}]}).skip((resPerPage * page) - resPerPage).limit(resPerPage);
+					const allSongs = await Song.find({$or : [{tags:{$in:[regex]}}, {genre: regex}, {subgenre:regex}]}).skip((resPerPage * page) - resPerPage).sort({"_id":-1}).limit(resPerPage);
 
 					const numOfSongs = await Song.countDocuments({$or : [{tags:{$in:[regex]}}, {genre: regex}, {subgenre:regex}]});
 
@@ -38,12 +38,12 @@ router.get("/:page", middleware.isActivated, async(req,res,next)=>{
 						return res.redirect('/songs/1');
 					}else{						
 
-					res.render("songs/index",{songs:allSongs, isAdmin:isAdmin, numSongs: numOfSongs, currPage: page, searchVal:req.query.search, pages: 			Math.ceil(numOfSongs / resPerPage)});			
+					res.render("songs/index",{songs:allSongs, isAdmin:isAdmin, numSongs: numOfSongs, currPage: page, searchVal:req.query.search, pages: Math.ceil(numOfSongs / resPerPage)});			
 					}
 				}else
 				{	
 					//console.log('normal');
-					const allSongs = await Song.find({}).skip((resPerPage * page) - resPerPage).limit(resPerPage);
+					const allSongs = await Song.find({}).skip((resPerPage * page) - resPerPage).sort({"_id":-1}).limit(resPerPage);
 
 					const numOfSongs = await Song.countDocuments({});
 
