@@ -173,7 +173,23 @@ router.get("/new", middleware.isLoggedIn, async(req,res,next)=>{
 router.get("/:id", function(req,res){	
 	
 	let id = req.params.id;
-	Song.findById(id).populate("mixes").exec(function(err,song){
+	
+	/*Kitten.find().populate({
+    path: 'owner'
+  , select: 'name'
+  , match: { color: 'black' }
+  , options: { sort: { name: -1 }}
+}).exec(function (err, kittens) {
+  console.log(kittens[0].owner.name) // Zoopa
+})*/
+	
+	
+	
+	Song.findById(id).populate({
+    path: 'mixes'
+ 
+  , options: { sort: { _id: 1 }}
+}).exec(function(err,song){
 		if(err || !song)
 			{
 				req.flash('error', 'Sorry, that song does not exist!');
