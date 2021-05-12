@@ -27,6 +27,8 @@
 									<section class="row container-fluid sngRow">									
 											<article class = "mixbuttons">											
 												<div><a class = "sngTitleMain" href = "/song/<%= song._id%>"><%= song.name %></a></div>
+												
+													
 												<span class = "pull-right">
 													<%=song.genre%> | <%=song.subgenre%> | <%=song.bpm%> BPM
 												</span>
@@ -39,7 +41,9 @@
 												<progress class = "progressbar" id ="seekbar_<%=x%>" name ="<%=x%>" value="0" max="1" style="width:99%;"></progress>	
 												
 												
-												<div><!--a href = "/song/<%= song._id%>" class = "btn btn-primary">More Info</a>-->
+												<div>
+													<!--a href = "/song/<%= song._id%>" class = "btn btn-primary">More Info</a>-->
+												
 												<% if(isAdmin || (currentUser && song.author.id.equals(currentUser._id))){%>
 													<a href = "/song/<%= song._id %>/edit" class = "btn btn-warning spacer">Edit</a>
 													<form id = "delete-form"  class = "pull-right spacer" action = "/song/<%= song._id %>?_method=DELETE" method = "POST">
@@ -47,6 +51,23 @@
 															Delete
 														</button>
 													</form>	
+													<% if (currentUser && currentUser.isActivated === true){%>
+												<form  class = "pull-right spacer" id = "download-form" action = "/song/<%= song._id %>/downloads" method = "POST">								
+															<%let sdl = "Download";										
+																if(currentUser)
+																{
+																	let found = song.downloads.indexOf(currentUser._id);
+																	if(found !== -1)
+																	{
+																		sdl = "Song Downloaded"
+																	}
+																}	
+																	%>
+															<button class = "btn btn-sm downloadBtn">
+																<%=sdl%>
+															</button>&nbsp;&nbsp;&nbsp;
+												</form>
+												<%}%>
 												</div>
 																				
 													<%} %>
