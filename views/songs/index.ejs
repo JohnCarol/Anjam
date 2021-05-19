@@ -51,6 +51,7 @@
 															Delete
 														</button>
 													</form>	
+													<%} %>
 													<% if (currentUser && currentUser.isActivated === true){%>
 												<form  class = "pull-right spacer" id = "download-form" action = "/song/<%= song._id %>/downloads" method = "POST">								
 															<%let sdl = "Download";										
@@ -70,7 +71,7 @@
 												<%}%>
 												</div>
 																				
-													<%} %>
+													
 											</article>									
 									</section>				
 				</article>	
