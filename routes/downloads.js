@@ -8,12 +8,10 @@ const request = require('request');
  
 router.get('/', middleware.isLoggedIn, (req,res)=>{
 		   
-	let id = req.params.id;
-	let mix_id = req.params.mix_id;	
-	let user_id = req.user._id;
-		   
-		   
-		   });
+		let id = req.params.id;
+		let mix_id = req.params.mix_id;	
+		let user_id = req.user._id;	   
+	});
 
 //GET SONG OR MIX DOWNLOAD
 router.post('/', middleware.isLoggedIn, (req,res)=>{
@@ -27,7 +25,6 @@ router.post('/', middleware.isLoggedIn, (req,res)=>{
 			id = mix_id;
 			let songid = req.params.id;
 			Mix.findById(id, function(err,foundMix){
-
 				if(err)
 				{
 					console.log(err);
@@ -61,10 +58,9 @@ router.post('/', middleware.isLoggedIn, (req,res)=>{
 							foundSong.save();
 						});
 					} 
-				res.setHeader("content-disposition", "attachment; filename=" +name+".mp3");         
+				res.setHeader("content-disposition", "attachment; filename=ANJAM_"+name+".mp3");         
 				request(link).pipe(res); 	
 				}
-
 			})
 		}else
 			
@@ -90,23 +86,16 @@ router.post('/', middleware.isLoggedIn, (req,res)=>{
 				//console.log("found is: " + found);
 				if(found !== -1)
 				{
-					console.log('Song Already downloaded');
-				
-					
+					console.log('Song Already downloaded');					
 				}else
-				{
-					
+				{	
 					console.log('Newly downloaded');
 					foundSong.downloads.push(user_id);
-					foundSong.save();	
-					
-					
-				}				
+					foundSong.save();
+				}
 				console.log(link);
-				res.setHeader("content-disposition", "attachment; filename=" +name+".mp3");         
+				res.setHeader("content-disposition", "attachment; filename=ANJAM_"+name+".mp3");         
 				request(link).pipe(res);
-				
-				
 			}
 		})
 		
