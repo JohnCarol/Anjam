@@ -23,7 +23,7 @@ router.get("/:page", middleware.isActivated, async(req,res,next)=>{
 					const searchQuery = req.query.search,
 					regex = new RegExp(escapeRegex(searchQuery), 'gi');
 					
-					console.log(regex);
+					//console.log(regex);
 					
 					//{ $or: [{ name: "Rambo" }, { breed: "Pugg" }, { age: 2 }] },
 					//{ tags: { $in: ["appliances", "school"] } },
