@@ -147,6 +147,10 @@ color:black;
 	vertical-align: middle;
 }
 
+.searchData{
+	background-color: gray;
+}
+
 .btnOptions{
 	padding: 9px;
 }

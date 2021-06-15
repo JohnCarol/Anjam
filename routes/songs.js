@@ -20,16 +20,25 @@ router.get("/:page", middleware.isActivated, async(req,res,next)=>{
 				if(req.query.search)
 				{				
 						//console.log('search');
-					const searchQuery = req.query.search,
+					const searchQuery = req.query.search;
+					const searchArr = searchQuery.split(" ");
 					regex = new RegExp(escapeRegex(searchQuery), 'gi');
 					
-					//console.log(regex);
+					const capitalised = searchArr.map(tag => capitalize(tag));
+					//const capitalise = lowerCased.map(tags => tag.charAt(0).toUpperCase + tag.slice(1));
+					
+					const tags = capitalised;
 					
 					//{ $or: [{ name: "Rambo" }, { breed: "Pugg" }, { age: 2 }] },
 					//{ tags: { $in: ["appliances", "school"] } },
-					const allSongs = await Song.find({$or : [{tags:{$in:[regex]}}, {genre: regex}, {name:regex}, {subgenre:regex}]}).skip((resPerPage * page) - resPerPage).sort({"name":1,"_id":-1}).limit(resPerPage);
+					//const allSongs = await Song.find({$or : [{tags:{$in:[searchArr]}}, {genre: regex}, {name:regex}, {subgenre:regex}]}).skip((resPerPage * page) - resPerPage).sort({"name":1,"_id":-1}).limit(resPerPage);
+					
+					const allSongs = await Song.find({$or : [{tags:{$all:tags}}, {genre: regex}, {name:regex}, {subgenre:regex}]}).skip((resPerPage * page) - resPerPage).sort({"name":1,"_id":-1}).limit(resPerPage);
+					
+					//db.inventory.find( { tags: { $all: ["red", "blank"] } } )
 
-					const numOfSongs = await Song.countDocuments({$or : [{tags:{$in:[regex]}}, {genre: regex},{name:regex}, {subgenre:regex}]});
+					//const numOfSongs = await Song.countDocuments({$or : [{tags:{$in:[regex]}}, {genre: regex},{name:regex}, {subgenre:regex}]});
+					const numOfSongs = await Song.countDocuments({$or : [{tags:{$all:tags}}, {genre: regex}, {name:regex}, {subgenre:regex}]});
 
 					if(numOfSongs < 1)
 					{						
@@ -37,8 +46,8 @@ router.get("/:page", middleware.isActivated, async(req,res,next)=>{
 						req.flash('error', 'Sorry, that search returned no results...!');
 						return res.redirect('/songs/1');
 					}else{						
-
-					res.render("songs/index",{songs:allSongs, isAdmin:isAdmin, numSongs: numOfSongs, currPage: page, searchVal:req.query.search, pages: Math.ceil(numOfSongs / resPerPage)});			
+					
+						res.render("songs/index",{songs:allSongs, isAdmin:isAdmin, numSongs: numOfSongs, currPage: page, searchVal:tags.toString(), pages: Math.ceil(numOfSongs / resPerPage)});			
 					}
 				}else
 				{	
@@ -86,6 +95,10 @@ function toMinutes(length){
 	return str_pad_left(minutes,'0',2)+':'+str_pad_left(seconds,'0',2);
 	
 }
+
+function capitalize(word) {
+  						return word[0].toUpperCase() + word.slice(1).toLowerCase();
+					}
 
 
 module.exports = router;
