@@ -19,7 +19,7 @@
 	<section>
 		<span>
 			<span class = "pull-right"> - <%= numSongs %> results</span>		
-			<span class = "pageno pull-left"><%= searchVal ? 'Searched tags: ' + searchVal : ''%></span><span class = "pageno pull-right">Page <span><%= currPage %></span> of <span><%= pages %>&nbsp;-</span></span>
+			<span class = "pageno pull-left"><%= searchTags ? 'Searched tags: ' + searchTags : ''%></span><span class = "pageno pull-right">Page <span><%= currPage %></span> of <span><%= pages %>&nbsp;-</span></span>
 		</span>
 		<% 	
 			if(songs)
