@@ -58,7 +58,7 @@ router.post('/', middleware.isLoggedIn, (req,res)=>{
 							foundSong.save();
 						});
 					} 
-				res.setHeader("content-disposition", "attachment; filename=ANJAM_"+name+".mp3");         
+				res.setHeader("content-disposition", "attachment; filename=ANJam_"+name+".mp3");         
 				request(link).pipe(res); 	
 				}
 			})
@@ -94,7 +94,7 @@ router.post('/', middleware.isLoggedIn, (req,res)=>{
 					foundSong.save();
 				}
 				console.log(link);
-				res.setHeader("content-disposition", "attachment; filename=ANJAM_"+name+".mp3");         
+				res.setHeader("content-disposition", "attachment; filename=ANJam_"+name+".mp3");         
 				request(link).pipe(res);
 			}
 		})
