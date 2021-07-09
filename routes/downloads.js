@@ -43,12 +43,12 @@ router.post('/', middleware.isLoggedIn, (req,res)=>{
 					let found = downloads.indexOf(user_id);
 					if(found !== -1)
 					{
-						console.log('Mix Already downloaded');				
+						//console.log('Mix Already downloaded');				
 					
 					}else
 					{
 					
-						console.log('Newly downloaded mix');
+						//console.log('Newly downloaded mix');
 						foundMix.downloads.push(user_id);
 						foundMix.save();	
 						
@@ -86,10 +86,10 @@ router.post('/', middleware.isLoggedIn, (req,res)=>{
 				//console.log("found is: " + found);
 				if(found !== -1)
 				{
-					console.log('Song Already downloaded');					
+					//console.log('Song Already downloaded');					
 				}else
 				{	
-					console.log('Newly downloaded');
+					//console.log('Newly downloaded');
 					foundSong.downloads.push(user_id);
 					foundSong.save();
 				}
