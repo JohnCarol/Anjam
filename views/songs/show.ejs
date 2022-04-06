@@ -1,7 +1,7 @@
 <%- include("../partials/header")%>
-<main class = "container">
-		<section class = "col-md-12 thumbnail caption-full">
-			<header class = "jumbotron">
+
+		<section >
+			<div class = "header_show">
 				<% if (currentUser && currentUser.isActivated === true){%>
 					<form  class = "pull-right" id = "download-form" action = "/song/<%= song._id %>/downloads" method = "POST">								
 								<%let sdl = "Download";										
@@ -54,8 +54,9 @@
 								</button>
 							</form>
 					<% }%>		
-			</header>
-			<div class = "well">	
+			</div>
+			<main class = "container">
+			
 			
 					<% var x = 1;
 						song.mixes.forEach(function(mix){
@@ -113,11 +114,13 @@
 					<% x++}) %>		
 			        <% if(isAdmin || (currentUser && song.author.id.equals(currentUser._id))){%><div><a class = "btn btn-primary btn-large btn-block" href = "/song/<%=song.id%>/mixes/new">ADD A NEW MIX</a></div> <%}%>	
 				
-			</div>			
+					
 			
 	
 		
-		
+
+</main>	
+</section>
 		<div class="modal fade" id="confirm-delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 		  <div class="modal-dialog">
 			<div class="modal-content">
@@ -136,8 +139,7 @@
 			</div>
 		  </div>
 		</div>		
-	</section>
-</main>
+	
 	<!--<script type="text/javascript" src = "/js/scripts.js"></script>-->
 	<script type="text/javascript" src = "/js/player.js"></script>
 	<script type="text/javascript" src = "/js/js.js"></script>

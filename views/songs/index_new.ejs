@@ -14,9 +14,6 @@
 					<div class = "form-group">
 						<input type = "text" name = "search" placeholder = "Search..." class = "form-control" required>
 						<input type = "submit" value = "Search" class = "btn btn-default">
-						<button type="button" class="btn btn-outline-dark btn-sm" data-toggle="modal" data-target="#myModal">
-  <span class="badge">Search Suggestions</span>
-</button>
 					</div>
 				</form>
 			</article>
@@ -24,7 +21,7 @@
 	</header>
 <main class = "container">
 	
-	
+	<section>
 		<span>
 			<span class = "pull-right"> - <%= numSongs %> results</span>		
 			<span class = "pageno pull-left"><%= searchTags ? 'Searched tags: ' + searchTags : ''%></span><span class = "pageno pull-right">Page <span><%= currPage %></span> of <span><%= pages %>&nbsp;-</span></span>
@@ -42,13 +39,14 @@
 												<span class = "pull-right">
 													<%=song.genre%> | <%=song.subgenre%> | <%=song.bpm%> BPM
 												</span>
-												<audio id="player_<%=x%>" class = "player" src="<%= song.fileUrl%>"></audio>
-							
+												<!--<audio id="player_<%=x%>" class = "player" src="<%= song.fileUrl%>"></audio>-->
+												<audio id="player_<%=x%>" class = "player" src="https://res.cloudinary.com/dxomkhcaw/video/upload/v1633899708/Anjam/pjgaixy853kygypgf4l1.mp3"></audio>
 												<button class = "play"  name = "<%=x%>"><span class = "glyphicon glyphicon-play sngBtns"></span></button>
 												<button class = "pause"  name = "<%=x%>"><span class = "glyphicon glyphicon-pause sngBtns"></span></button>	
 												<button class = "stop"  name = "<%=x%>"><span class = "glyphicon glyphicon-stop sngBtns"></span></button>
 
 												<progress class = "progressbar" id ="seekbar_<%=x%>" name ="<%=x%>" value="0" max="1" style="width:99%;"></progress>	
+												<div id="waveform_<%=x%>"></div>
 												
 												
 												<div>
@@ -117,9 +115,10 @@
 		</a>
 	<% } %>
 </div>
-	
+	</section>		
 </main>
 <script type="text/javascript" src = "/js/player.js"></script>
 <script type="text/javascript" src = "/js/js.js"></script>
+<script src="https://unpkg.com/wavesurfer.js"></script>
 
 <%- include ("../partials/footer") %>

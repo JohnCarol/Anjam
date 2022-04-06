@@ -6,6 +6,7 @@ const User = require("../models/user");
 //sgMail.setApiKey(process.env.SENDGRIDAPI);
 const nodemailer = require('nodemailer');
 
+
 const transporter = nodemailer.createTransport({
 	host: "smtp.anjam.net",
 	port: "587",
@@ -23,8 +24,8 @@ const transporter = nodemailer.createTransport({
 
 router.get("/", function(req,res){
 	
-	//res.render("landing");
-	res.redirect("/songs/1")
+	res.render("landing");
+	//res.redirect("/songs/1")
 	
 });
 
