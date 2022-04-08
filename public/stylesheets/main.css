@@ -22,6 +22,10 @@ html {
 	
 }
 
+.songs{
+	padding-top: 100px;
+}
+
 
 
 body {
@@ -56,8 +60,8 @@ body {
 }
 
 .header{
-	padding: 200px; 
-	height: 80%;
+	padding-left: 200px; 
+	height: 20%;
   	
   	color: black;
   	font-size: 30px;
@@ -65,7 +69,7 @@ body {
 	
 	margin-top: 0px;
 	font-family: Helvetica, sans-serif; 
-	margin-bottom: 20px;
+	margin-bottom: 100px;
 	
 }
 
