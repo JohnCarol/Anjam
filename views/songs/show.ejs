@@ -2,6 +2,8 @@
 
 		<section >
 			<div class = "header_show">
+				<div class = "thumbnail">
+					<div class = "caption-full">
 				<% if (currentUser && currentUser.isActivated === true){%>
 					<form  class = "pull-right" id = "download-form" action = "/song/<%= song._id %>/downloads" method = "POST">								
 								<%let sdl = "Download";										
@@ -53,7 +55,9 @@
 									Delete
 								</button>
 							</form>
-					<% }%>		
+					<% }%>
+					</div>
+				</div>
 			</div>
 			<main class = "container">
 			
