@@ -30,13 +30,19 @@
 		  <h4 class="modal-title" id="myModalLabel">Suggested Tags</h4><%	if(typeof isAdmin !== 'undefined' && isAdmin === true){%><a href = "/tags/edit" class = "btn btn-primary btn-xs">Edit Tags</a><%}%>
       </div>
       <div class="modal-body">
+		  <div id = "suggestedTags" class = "flex-container">  
+			  
+		  
 		  <%
 		  	tags.forEach(function(tag){%>
-				<span  class = 'label label-default lb-md' onClick=addTag('<%=tag.tag%>')><%=tag.tag%></span>
+				<div  class = 'label label-default lb-md' onClick=addTag('<%=tag.tag%>')><%=tag.tag%></div>
 			<%})%>
+		 
+		  
+		  </div>
 		  <br><br>
 		   <h4 class="modal-title" id="myModalLabel">Selected Tags</h4>
-		  <div id = "selectedTags">
+		  <div id = "selectedTags" class="flex-container">
 			  
 		  </div>
       </div>
@@ -95,7 +101,7 @@
 		const cleanArr = [];
 		selTags.forEach(function(tag)
 		{
-			tag = "<span class = 'label label-default lb-md'>"+ tag +"</span> "
+			tag = "<div class = 'label label-default lb-md'>"+ tag +"</div> "
 						cleanArr.push(tag);
 		})
 	

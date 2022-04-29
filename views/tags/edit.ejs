@@ -1,119 +1,91 @@
 <%- include ("../partials/header") %>
 
-<div class = "container">
-	<div class = "panel panel-default">
-		<div class="panel-heading"><h2 style = "text-align:center">Edit Tags</h1></div>
-		<div class="panel body songData">
-			<div class="panel-heading"><h3 style = "text-align:center">All tags</h3></div>
-			<div class = "tags">
-				<%
-				tags.forEach(function(tag){%>
+<div class="container">
+  <div class="panel panel-default">
+    <div class="panel-heading"><h2>Edit Tags</h2></div>
+    <div class="panel body songData">
+      <div class="panel-heading"><h3>All tags</h3></div>
+      <div class="flex-container">
+        <% tags.forEach(function(tag){%>
 
-				<span class = 'label label-default lb-md'  onClick='selectTag("<%=tag%>")'><%=tag%></span>
+        <div class="label label-default lb-md" onClick='selectTag("<%=tag%>")'>
+          <%=tag%>
+        </div>
 
-				<%})%>
-			</div>
-			<div class="panel-heading"><h3 style = "text-align:center">Selected tags</h3></div>
-			<div id = "selectedTags"  class = "selectedTags tags">
-				<script type = "text/javascript">
-				
-					const savedTags=[];
-					
-				</script>
-				<%
-					selectedTags.forEach(function(selTags){%>
-						
-						<span class = 'label label-default lb-md'><%=selTags.tag%></span>
-				<script type="text/javascript">
-				
-					
-					savedTags.push('<%-selTags.tag%>');
-				
-				</script>
-						
-					<%})
-				%>
-			<br><br>
-			</div>
-			<div class="panel-footer">
-				<a href = "/songs/1" class="btn btn-primary">Done</a>
-			</div>
-		
-		</div>				
-	</div>		
+        <%})%>
+      </div>
+      <script type="text/javascript">
+        const savedTags = [];
+      </script>
+      <div class="panel-heading"><h3>Selected tags</h3></div>
+      <div id="selectedTags" class="flex-container">
+        <% selectedTags.forEach(function(selTags){%>
+
+        <div class="label label-default lb-md"><%=selTags.tag%></div>
+        <script type="text/javascript">
+          savedTags.push("<%-selTags.tag%>");
+        </script>
+
+        <%}) %>        
+      </div>
+		<br />
+      <div class="panel-footer">
+        <a href="/songs/1" class="btn btn-primary">Done</a>
+      </div>
+    </div>
+  </div>
 </div>
-</div></div>
 
-<script type = "text/javascript">
-	
-	const selectedTags = savedTags;
-	const selectTag = (tag) =>{
-		
-		if(selectedTags.includes(tag))
-		{
-			
-			const index = selectedTags.indexOf(tag);
-			if(index > -1){
-				selectedTags.splice(index, 1);
-			}
-			
-			}else{
-			
-				selectedTags.push(tag);
-			
-		}
-		
-		addTagToDB(tag);
-		
-		const cleanArr = tagsToHtml(selectedTags);
-		
-		let arrToStr = cleanArr.toString().replace(/,/g,'');
-		
-		
-	if(cleanArr.length > 0 )
-	   {
-			document.getElementById('selectedTags').innerHTML = arrToStr;	   
-	   }else{
-		   
-		   arrToStr = [];
-		    document.getElementById('selectedTags').innerHTML = arrToStr;
-	   }	
-		
-	}
-	
-	const tagsToHtml = (selTags) =>
-	{
-		
-		const cleanArr = [];
-		selTags.forEach(function(tag)
-		{
-			tag = "<span class = 'label label-default lb-md'>"+ tag +"</span> "
-						cleanArr.push(tag);
-		})
-	
-		return cleanArr;
-		
-	}
-	
-	const addTagToDB = (tag) => {
-		
-		const xhr = new XMLHttpRequest();		
-		const url = "/tags/"+tag;
-		
-		xhr.open("POST", url, true);
-		
-		xhr.onreadystatechange = function () {
-			console.log(this.onreadystatechange)
-			
-			if(this.onreadystatechange == 4 && this.status == 200)
-				{
-					
-				}
-		}
-		xhr.send();
-	}	
+<script type="text/javascript">
+  const selectedTags = savedTags;
+  const selectTag = (tag) => {
+    if (selectedTags.includes(tag)) {
+      const index = selectedTags.indexOf(tag);
+      if (index > -1) {
+        selectedTags.splice(index, 1);
+      }
+    } else {
+      selectedTags.push(tag);
+    }
 
+    addTagToDB(tag);
+
+    const cleanArr = tagsToHtml(selectedTags);
+
+    let arrToStr = cleanArr.toString().replace(/,/g, "");
+
+    if (cleanArr.length > 0) {
+      document.getElementById("selectedTags").innerHTML = arrToStr;
+    } else {
+      arrToStr = [];
+      document.getElementById("selectedTags").innerHTML = arrToStr;
+    }
+  };
+
+  const tagsToHtml = (selTags) => {
+    const cleanArr = [];
+    selTags.forEach(function (tag) {
+      tag = "<div class = 'label label-default lb-md'>" + tag + "</div> ";
+      cleanArr.push(tag);
+    });
+
+    return cleanArr;
+  };
+
+  const addTagToDB = (tag) => {
+    const xhr = new XMLHttpRequest();
+    const url = "/tags/" + tag;
+
+    xhr.open("POST", url, true);
+
+    xhr.onreadystatechange = function () {
+      console.log(this.onreadystatechange);
+
+      if (this.onreadystatechange == 4 && this.status == 200) {
+      }
+    };
+    xhr.send();
+  };
 </script>
 
-
-<%- include ("../partials/footer") %>	
+<%- include ("../partials/footer") %>

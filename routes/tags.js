@@ -41,7 +41,7 @@ router.post('/:tag', async(req,res)=>{
 	//console.log('We are here'+tag);
 	const foundTags = await Tags.find({"tag":tag});
 	
-	console.log("result:" + foundTags.length);
+	//console.log("result:" + foundTags.length);
 	if(foundTags.length > 0)
 		{
 			//console.log("remove "+tag);

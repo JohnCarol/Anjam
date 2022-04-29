@@ -130,17 +130,22 @@
 		  <h4 class="modal-title" id="myModalLabel">Suggested Tags</h4><%	if(typeof isAdmin !== 'undefined' && isAdmin === true){%><a href = "/tags/edit" class = "btn btn-primary btn-xs">Edit Tags</a><%}%>
       </div>
       <div class="modal-body">
-		  <%
-		  	tags.forEach(function(tag){%>
-				<span  class = 'label label-default lb-md' onClick=addTag('<%=tag.tag%>')><%=tag.tag%></span>
-			<%})%>
-		  %>
-		  <br><br>
-		   <h4 class="modal-title" id="myModalLabel">Selected Tags</h4>
-		  <div id = "selectedTags">
-			  
-		  </div>
-      </div>
+		  	<div class = "flex-container"> 
+				  <%
+					tags.forEach(function(tag){%>
+						<div  class = 'label label-default lb-md' onClick=addTag('<%=tag.tag%>')><%=tag.tag%></div>
+					<%})%>
+				  %>
+				 		
+					
+				</div>
+		   <br><br>		
+				   <h4 class="modal-title" id="myModalLabel">Selected Tags</h4>
+				  <div id = "selectedTags" class="flex-container">
+
+				  </div>
+		  
+     
       <div id = "modal-footer" class="modal-footer">
         <!--<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>-->
         
@@ -196,12 +201,10 @@
 		const cleanArr = [];
 		selTags.forEach(function(tag)
 		{
-			tag = "<span class = 'label label-default lb-md'>"+ tag +"</span> "
+			tag = "<div class = 'label label-default lb-md'>"+ tag +"</div> "
 						cleanArr.push(tag);
-		})
-	
-		return cleanArr;
-		
+		})	
+		return cleanArr;		
 	}
 	
 	
