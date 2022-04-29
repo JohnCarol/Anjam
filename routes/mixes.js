@@ -172,7 +172,7 @@ router.delete('/:mix_id', middleware.checkMixDetails, (req,res)=>{
 			{
 				if(req.xhr)
 					{
-						console.log('here');
+						//console.log('here');
 						res.json(deleted);	
 					}
 				else

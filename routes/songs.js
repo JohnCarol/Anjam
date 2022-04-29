@@ -1,10 +1,12 @@
 const express = require('express');
 const router  = express.Router({mergeParams: true});
 const Song = require("../models/songs");
+const Tags = require("../models/tags");
 const middleware = require("../middleware");
 
 router.get("/:page", middleware.isActivated, async(req,res,next)=>{
 
+	const foundTags = await Tags.find({});
 	const resPerPage = 9;
 	const page = req.params.page;
 	let isAdmin = '';
@@ -35,6 +37,8 @@ router.get("/:page", middleware.isActivated, async(req,res,next)=>{
 					
 					const allSongs = await Song.find({$or : [{tags:{$all:tags}}, {genre: regex}, {name:regex}, {subgenre:regex}]}).skip((resPerPage * page) - resPerPage).sort({"name":1,"_id":-1}).limit(resPerPage);
 					
+					//console.log(allSongs)
+					
 					//db.inventory.find( { tags: { $all: ["red", "blank"] } } )
 
 					//const numOfSongs = await Song.countDocuments({$or : [{tags:{$in:[regex]}}, {genre: regex},{name:regex}, {subgenre:regex}]});
@@ -43,11 +47,11 @@ router.get("/:page", middleware.isActivated, async(req,res,next)=>{
 					if(numOfSongs < 1)
 					{						
 
-						req.flash('error', 'Sorry, that search returned no results...!');
+						req.flash('error', 'Sorry, your search did not return any results.');
 						return res.redirect('/songs/1');
 					}else{						
 					
-						res.render("songs/index",{songs:allSongs, isAdmin:isAdmin, numSongs: numOfSongs, currPage: page, searchVal:searchQuery, searchTags:tags.toString(), pages: Math.ceil(numOfSongs / resPerPage)});			
+						res.render("songs/index",{songs:allSongs, tags:foundTags, isAdmin:isAdmin, numSongs: numOfSongs, currPage: page, searchVal:searchQuery, searchTags:tags.toString(), pages: Math.ceil(numOfSongs / resPerPage)});			
 					}
 				}else
 				{	
@@ -61,11 +65,11 @@ router.get("/:page", middleware.isActivated, async(req,res,next)=>{
 					{						
 
 						//req.flash('error', 'Sorry, that search returned no results...!');
-						res.render("songs/index",{songs:"",isAdmin:isAdmin,numSongs: numOfSongs, currPage: page, pages: 			Math.ceil(numOfSongs / resPerPage)});
+						res.render("songs/index",{songs:"",isAdmin:isAdmin,tags:foundTags,numSongs: numOfSongs, currPage: page, pages: 			Math.ceil(numOfSongs / resPerPage)});
 						
 					}else{						
 
-					res.render("songs/index",{songs:allSongs, searchVal:"", searchTags: searchTags, isAdmin:isAdmin, numSongs: numOfSongs, currPage: page, pages: 			Math.ceil(numOfSongs / resPerPage)});			
+					res.render("songs/index",{songs:allSongs,tags:foundTags,searchVal:"", searchTags: searchTags, isAdmin:isAdmin, numSongs: numOfSongs, currPage: page, pages: 			Math.ceil(numOfSongs / resPerPage)});			
 					}				
 				}		
 			}

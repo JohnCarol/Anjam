@@ -2,6 +2,7 @@ const express = require('express');
 const router  = express.Router();
 const passport = require("passport");
 const User = require("../models/user");
+const Tags = require("../models/tags");
 //const sgMail = require('@sendgrid/mail');
 //sgMail.setApiKey(process.env.SENDGRIDAPI);
 const nodemailer = require('nodemailer');
@@ -22,9 +23,12 @@ const transporter = nodemailer.createTransport({
 });
 
 
-router.get("/", function(req,res){
+router.get("/", async function(req,res){
 	
-	res.render("landing");
+	
+	const foundTags = await Tags.find({});
+	
+	res.render("landing", {tags: foundTags});
 	//res.redirect("/songs/1")
 	
 });

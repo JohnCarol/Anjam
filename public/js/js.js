@@ -12,7 +12,7 @@ $('#confirm-delete').on('click', '.btn-ok', function(e) {
    $modalDiv.addClass('loading');
    $.post(id).then(function() {
 	 let itemToDelete = id.replace("?_method=DELETE","");
-	   console.log(itemToDelete);
+	   //console.log(itemToDelete);
 	  
      $modalDiv.modal('hide').removeClass('loading');
 	   

@@ -7,8 +7,8 @@ const mongoose = require("mongoose");
 const express = require("express");
 const app = express();
 const bodyParser = require("body-parser");
-const Song = require("./models/songs");
-const Tag = require("./models/tags");
+//const Song = require("./models/songs");
+//const Tag = require("./models/tags");
 const seedDB = require("./seeds");
 const passport = require("passport");
 const LocalStrategy = require("passport-local");
@@ -23,7 +23,8 @@ const 	collectionRoutes = require('./routes/collections'),
 		mixesRoutes = require('./routes/mixes'),
 		downloadsRoutes = require('./routes/downloads'),
 	  	usersRoutes = require('./routes/users'),
-		profileRoutes = require('./routes/profile');
+		profileRoutes = require('./routes/profile'),
+	  	tagsRoutes = require('./routes/tags');
 
 const url = process.env.DATABASEURL || "mongodb://localhost/anjam";
 
@@ -81,6 +82,7 @@ app.use("/song/:id/downloads", downloadsRoutes);
 app.use("/song/:id/mixes/:mix_id/downloads", downloadsRoutes);
 app.use("/users", usersRoutes);
 app.use("/profile", profileRoutes);
+app.use("/tags", tagsRoutes);
 
 var port = process.env.PORT || 3000;
 

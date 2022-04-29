@@ -18,15 +18,27 @@ html {
 	background-repeat: no-repeat;
 	background-size: cover;
 	padding-bottom: 80px;
-	
-	
+}
+
+.tags{
+	text-align:center;
 }
 
 .songs{
 	padding-top: 100px;
 }
 
+.lb-sm {
+  font-size: 12px;
+}
 
+.lb-md {
+  font-size: 16px;
+}
+
+.lb-lg {
+  font-size: 20px;
+}
 
 body {
 	padding-top: 90px;
