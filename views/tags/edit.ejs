@@ -51,6 +51,8 @@
     addTagToDB(tag);
 
     const cleanArr = tagsToHtml(selectedTags);
+	  
+	  cleanArr.sort();
 
     let arrToStr = cleanArr.toString().replace(/,/g, "");
 

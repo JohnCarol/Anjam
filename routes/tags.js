@@ -8,7 +8,7 @@ const middleware = require("../middleware");
 router.get('/edit', async(req,res)=>{
 	
 	//const allTags = Song.find({});
-	const allSongs = await Song.find({}, {tags:1})
+	const allSongs = await Song.find({}, {tags:1}).sort({tags:1});
 	const selectedTags = await Tags.find({});	
 		
 	const tags = allSongs;
@@ -24,13 +24,14 @@ router.get('/edit', async(req,res)=>{
 	const filtered = tagsArr.filter(function(value, index, arr){ 
         return value !== "" && value !== null;	});	
 	
+		
 	let str = filtered.toString().replace(/ /g,'');
 	
 	str = str.replace(',,',',');
 	
 	const cleanArray = str.split(",");
 	
-	let finalTags = cleanArray.filter((v, i, a) => a.indexOf(v) === i);
+	let finalTags = cleanArray.filter((v, i, a) => a.indexOf(v) === i).sort();
 	
 	res.render('tags/edit', {tags:finalTags, selectedTags:selectedTags, savedTags: JSON.stringify(selectedTags)});
 })
