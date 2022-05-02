@@ -13,7 +13,7 @@ middlewareObj.checkAuthentication = function(req,res,next)
 			Song.findById(req.params.id, function(err, foundSong){
 			if(err || !foundSong){
 				req.flash('error', 'Sorry, that song does not exist!');
-				res.redirect("/songs");
+				res.redirect("/songs/1");
 			}else{
 				
 				if(req.user.isAdmin || foundSong.author.id.equals(req.user._id))
@@ -44,7 +44,7 @@ middlewareObj.checkMixDetails = function(req,res,next)
 			if(err || !foundMix){
 				console.log(err);
 				req.flash('error', 'Sorry, that mix does not exist!');
-				res.redirect("/songs");
+				res.redirect("/songs/1");
 			}else{					
 					req.mix = foundMix;
 					next();	

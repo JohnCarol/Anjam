@@ -6,7 +6,7 @@ const middleware = require("../middleware");
 
 router.get("/:page", middleware.isActivated, async(req,res,next)=>{
 
-	const foundTags = await Tags.find({});
+	const foundTags = await Tags.find({}).sort({tag:1});
 	const resPerPage = 9;
 	const page = req.params.page;
 	let isAdmin = '';

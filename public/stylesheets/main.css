@@ -35,6 +35,10 @@ html {
 	text-align:center;
 }
 
+.tag{
+	cursor: pointer;
+}
+
 .songs{
 	padding-top: 100px;
 }

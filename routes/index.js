@@ -26,7 +26,7 @@ const transporter = nodemailer.createTransport({
 router.get("/", async function(req,res){
 	
 	
-	const foundTags = await Tags.find({});
+	const foundTags = await Tags.find({}).sort({tag:1});
 	
 	res.render("landing", {tags: foundTags});
 	//res.redirect("/songs/1")

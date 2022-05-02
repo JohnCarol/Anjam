@@ -8,7 +8,7 @@
       <div class="flex-container">
         <% tags.forEach(function(tag){%>
 
-        <div class="label label-default lb-md" onClick='selectTag("<%=tag%>")'>
+        <div class="label label-default lb-md tag" onClick='selectTag("<%=tag%>")'>
           <%=tag%>
         </div>
 
@@ -67,7 +67,7 @@
   const tagsToHtml = (selTags) => {
     const cleanArr = [];
     selTags.forEach(function (tag) {
-      tag = "<div class = 'label label-default lb-md'>" + tag + "</div> ";
+      tag = "<div class = 'label label-default lb-md tag'>" + tag + "</div> ";
       cleanArr.push(tag);
     });
 
