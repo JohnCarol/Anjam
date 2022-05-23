@@ -1,51 +1,23 @@
 $(function(){
-	
-	
-	$('.play').on('click', function() {		
-	
-		  
+	$('.play').on('click', function() {
+	  
 	let playerName = "player_" + $(this).attr('name');   
-	let fileName = 	$('#' + playerName).attr('src');
     let seekBar = "seekbar_" + $(this).attr('name');
-	let wavesurfer = WaveSurfer.create({
-    	container: '#waveform_' + $(this).attr('name')
-	});
-		
-	//let i = 0;
-	//let wavesurfer = [];
-	
-	//$(".player").each(function(){
-		
-	//	wavesurfer[i] = WaveSurfer.create({
-    	//container: '#waveform_' + i
-	//});
-	//	i++;
-		
-	//})	
-		
-	
-
-	wavesurfer.load(fileName);
-	
 		
 	$(".mixbuttons").each(function(){			
 			
 		$(this).closest('.thumbnail').removeClass("playing");
 			
 	})
-	i = 0;
+	let i = 0;
 	$(".player").each(function(){
 		
-		//$(".player")[i].pause();
-		//wavesurfer[i].stop()
-		//i++;
+		$(".player")[i].pause();
+		i++;
 		
 	})	
 		
-    //document.getElementById(playerName).play();
-		wavesurfer.on('ready', function () {
-    wavesurfer.play();
-});
+    document.getElementById(playerName).play();
 		
 	$(this).closest('.thumbnail').addClass("playing");	
 		
@@ -53,7 +25,7 @@ $(function(){
     $('#'+ seekBar).attr("value", this.currentTime / this.duration);
     
     //let progressBar = document.getElementById("seekbar");
-		//console.log(seekBar);
+		console.log(seekBar);
     let progressBar = document.getElementById(seekBar);
 	progressBar.addEventListener("click", seek);
     
@@ -77,6 +49,5 @@ $(function(){
 		console.log(name);
 		document.getElementById(name).pause();
 		document.getElementById(name).currentTime = 0;
-		wavesurfer.stop();
 	});
 });
