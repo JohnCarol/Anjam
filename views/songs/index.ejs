@@ -46,7 +46,7 @@
 												<button class = "stop"  name = "<%=x%>"><span class = "glyphicon glyphicon-stop sngBtns"></span></button>
 
 												<progress class = "progressbar" id ="seekbar_<%=x%>" name ="<%=x%>" value="0" max="1" style="width:99%;"></progress>	
-												<!--<div id="waveform_<%=x%>" style="display:none" class = "waveform" name = "<%=x%>"></div>-->
+												<div id="waveform_<%=x%>" style="display:none" class = "waveform" name = "<%=x%>"></div>
 												
 												
 												<div>
@@ -117,8 +117,8 @@
 </div>
 	</section>		
 </main>
-<script type="text/javascript" src = "/js/player_old.js"></script>
+<script type="text/javascript" src = "/js/player.js"></script>
 <script type="text/javascript" src = "/js/js.js"></script>
-<!--<script src="https://unpkg.com/wavesurfer.js"></script>-->
+<script src="https://unpkg.com/wavesurfer.js"></script>
 
 <%- include ("../partials/footer") %>

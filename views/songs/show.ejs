@@ -25,12 +25,13 @@
 						<div class = "mixbuttons">
 							<h3><%=song.name %></h3>
 							<audio class = "player" id="player_0" src="<%= song.fileUrl%>"></audio>
+							<!--<audio id="player_0" class = "player" src="https://res.cloudinary.com/dxomkhcaw/video/upload/v1633899708/Anjam/pjgaixy853kygypgf4l1.mp3"></audio>-->
 							
 								<button class = "play"  name = "0"><span class = "glyphicon glyphicon-play sngBtns"></span></button>
 								<button class = "pause"  name = "0"><span class = "glyphicon glyphicon-pause sngBtns"></span></button>	
 								<button class = "stop"  name = "0"><span class = "glyphicon glyphicon-stop sngBtns"></span></button>
 								<progress class = "progressbar" id ="seekbar_0" name ="0" value="0" max="1" style="width:99%;"></progress>
-							<!--<div id="waveform_0"  class = "waveform" name = "0" style="display:none"></div>-->
+								<div id="waveform_0"  class = "waveform" name = "0" style="display:none"></div>
 								
 							<p class = "text-left">
 								<small>Genre : <%=song.genre%><br>
@@ -74,14 +75,14 @@
 								<div class = "sngTitle"><%= mix.name%></div>
 								<div class = "mixbuttons mixbuttonsShow">
 									<audio class = "player" id="player_<%=x%>" src="<%= mix.fileUrl%>"></audio>
-									
+									<!--<audio id="player_<%=x%>" class = "player" src="https://res.cloudinary.com/dxomkhcaw/video/upload/v1633899708/Anjam/pjgaixy853kygypgf4l1.mp3"></audio>-->
 							
 									<button class = "play"  name = "<%=x%>"><span class = "glyphicon glyphicon-play sngBtns"></span></button>
 									<button class = "pause"  name = "<%=x%>"><span class = "glyphicon glyphicon-pause sngBtns"></span></button>	
 									<button class = "stop"  name = "<%=x%>"><span class = "glyphicon glyphicon-stop sngBtns"></span></button>
 									
 									<progress class = "progressbar" id ="seekbar_<%=x%>" name ="<%=x%>" value="0" max="1" style="width:99%;"></progress>
-									<!--<div id="waveform_<%=x%>" style="display:none" class = "waveform" name = "<%=x%>"></div>-->
+									<div id="waveform_<%=x%>" style="display:none" class = "waveform" name = "<%=x%>"></div>
 								<% if (currentUser && currentUser.isActivated === true){%>
 									<form  class = "pull-right" id = "download-form" action = "/song/<%= song._id %>/mixes/<%=mix._id%>/downloads" method = "POST">							
 										<%
@@ -150,8 +151,10 @@
 
 	
 	<!--<script type="text/javascript" src = "/js/scripts.js"></script>-->
-	<script type="text/javascript" src = "/js/player_old.js"></script>
+	<script type="text/javascript" src = "/js/player.js"></script>
 	<script type="text/javascript" src = "/js/js.js"></script>
-<!--<script src="https://unpkg.com/wavesurfer.js"></script>-->
+	<!--<script src="https://unpkg.com/wavesurfer.js"></script>-->
+	<script type="text/javascript" src = "/js/wavesurfer.js"></script>
+	<script type="text/javascript" src = "/js/wavesurferCursor.js"></script>
 <%- include("../partials/footer")%>
 

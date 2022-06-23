@@ -10,12 +10,33 @@ $(function(){
 		//wavesurfer[i].stop()
 		
 		 wavesurfer = WaveSurfer.create({
-    	container: '#waveform_' +i});
+    		container: '#waveform_' +i,
+			waveColor: '#D9DCFF',
+    		progressColor: '#4353FF',
+    		cursorColor: '#4353FF',
+    		barWidth: 3,
+    		barRadius: 3,
+    		cursorWidth: 1,
+    		height: 200,
+    		barGap: 3,
+			plugins: [WaveSurfer.cursor.create({
+				showTime: true,
+            	opacity: 1,
+            	customShowTimeStyle: {
+                'background-color': '#000',
+                color: '#fff',
+                padding: '2px',
+                'font-size': '10px'
+            			}
+					})
+				]});
 		
 		audios.push(wavesurfer);
 		i++;
 		
 	})	
+	
+	
 	
 	//console.log(audios);
 	
